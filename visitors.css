@@ -1,0 +1,75 @@
+/*
+   T.C.E.D.I. Open Visitors Management System
+   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+
+   T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
+   phpVisitorBadge Enhanced
+   Copyright (c) 2010-2016 RKW ACE S.A.
+
+   phpVisitorBadge Enhanced is a derivative work based on the original version of phpVisitorBadge.
+   phpVisitorBadge
+   Copyright (c) 2010 by NCA/KRK.
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+*/
+
+p.signature{text-align: center; font-size: 125%}
+ul{text-align: left; font-size: 125%}
+ol{text-align: left; font-size: 125%}
+body{padding: 10px;background-color: #FFFFFF;
+font: 75% Arial}
+h1,h2,p{margin: 0 5px;}
+/*div#nifty{ width:640px;padding: 30px 0;text-align:center; margin: 9% 30%;background:#D4DDFF}*/
+h1{font-size: 250%;color: #000000}
+h1.admin{text-align: center}
+h2{font-size: 200%;color: #0050FF; padding-top: 0.3em}
+h3.inout{font-size: 175%;}
+div.visitors{border-width: thin; border-style:solid; border-color: #00CCFF; width:auto; margin-left: auto; margin-right: auto; text-align: center; background: linear-gradient(to bottom, #00ccff 0%,#ffffff 75%); border-radius: 5px;}
+div.signout{border-width: thin; border-style:solid; border-color: #00CCFF; width:auto; margin-left: auto; margin-right: auto; text-align: center; background: linear-gradient(to bottom, #00ccff 0%,#ffffff 75%); border-radius: 5px;}
+div.in{border-width: thin; border-top-style: solid; border-color:#0075FF; margin-left: auto; margin-right: auto; text-align: center; background: #A6FFBB}
+div.out{border-width: thin; border-top-style: solid; border-color:#0075FF; margin-left: auto; margin-right: auto; text-align: center; background: #FFC8A6}
+div.receptionview{margin-left: auto; margin-right: auto; text-align: center}
+p{padding-bottom:1em}
+p.message{padding-bottom:1em; text-align: left; font-size: 125%}
+p.nda{padding-bottom:1em; text-align: left; font-size: 125%}
+p.translation{text-align: center}
+p.changelocation{text-align: center}
+p.copyright{text-align: center}
+p.barriercode{padding-bottom:1em; text-align: left; font-size: 125%}
+p.close{text-align: center; font-size: 125%}
+p.note{text-align: left ; font-size: small ; font-style: italic ; font-weight: bold}
+table{size: 100%; text-align: left;font-size: 125%}
+table.admin{size: 100%; text-align: left;font-size: 76%}
+table.receptionview{border-style: outset; border-width: 1px; margin-left: auto; margin-right: auto;}
+th.receptionview{border-style: inset; border-width: 1px}
+td.receptionview{border-style: inset; border-width: 1px}
+.overflow{height:275px}
+div.table{display:table;}
+div.table-row{display:table-row;}
+.lang-flow{width:99%;margin-left:auto;margin-right:auto;text-align:center;}
+.lang{display:inline-block;text-align:center;padding:5px;margin-left:auto;margin-right:auto;}
+.centered-flow{width:99%;margin-left:auto;margin-right:auto;text-align:center;}
+.centered-flow-block{display:inline-block;text-align:center;padding:5px;margin-left:auto;margin-right:auto;}
+.plain-centered-block{display:inline-block;margin-left:auto;margin-right:auto;margin-top:auto;margin-bottom:auto;}
+.centered-table{display:table;margin-left:auto;margin-right:auto;}
+.table{display:table}
+.table-row{display:table-row;}
+.table-cell{display:table-cell;padding:5px;}
+.table-cell-right-align{display:table-cell;padding:5px;text-align:right;vertical-align:middle;}
+.table-cell-left-align{display:table-cell;padding:5px;text-align:left;vertical-align:middle;}
+.set-font-size{font-size:1.5em;}
+.hide{display: none;}
+/*
+div.badge{height: 35.7mm; width: 88.6mm; text-align: center}
+th.badge{text-align: center; white-space: nowrap}
+td.badge{text-align: center; white-space: nowrap}*/
