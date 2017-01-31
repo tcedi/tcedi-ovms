@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -65,4 +65,5 @@ $TEXT_ENTRANCE = 'Entrée';
 $TEXT_EXIT = 'Sortie';
 $TEXT_RECEPTION_VIEW = 'Vue de la réception';
 $TEXT_ABOUT = 'A propose de...';
+$TEXT_PLEASE_CHECK_YOUR_EMAIL_ADDRESS = 'Veuillez vérifier votre adresse e-Mail. Elle semble être invalide.';
 ?>

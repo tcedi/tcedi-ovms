@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -98,8 +98,7 @@ echo('
 ?>
 
 <link rel="stylesheet" type="text/css" href="visitors.css">
-<script type="text/javascript" src="validation.js"></script>
-<SCRIPT type="text/javascript">
+<script type="text/javascript">
 //client side validation checking
 function CheckFirstName(sFirstName)
 {
@@ -207,38 +206,63 @@ function OnVehicleOnSiteValueChanged(fForm)
 {
   if(fForm.vehicleonsite[0].checked)
   {
-	document.getElementById("licenseplatenumberlabel").innerHTML ="<b><?php echo "$TEXT_LICENSE_PLATE_NUMBER" ?><\/b>";
-	fForm.licenseplate.disabled=false;
+    document.getElementById("licenseplatenumberlabel").innerHTML ="<b><?php echo "$TEXT_LICENSE_PLATE_NUMBER" ?><\/b>";
+    fForm.licenseplate.disabled=false;
   }
   else
   {
     document.getElementById("licenseplatenumberlabel").innerHTML ="<?php echo "$TEXT_LICENSE_PLATE_NUMBER" ?>";
-	fForm.licenseplate.value="";
-	fForm.licenseplate.disabled=true;
+    fForm.licenseplate.value="";
+    fForm.licenseplate.disabled=true;
   }
   
   return true;
 }
 
-function checkWholeForm(theForm) {
-    var why = "";
-    //why += checkUsername(theForm.vname.value);
-	why += CheckFirstName(theForm.firstname.value);
-	why += CheckLastName(theForm.lastname.value);
-    why += CheckCompanyName(theForm.company.value);
-    why += CheckReasonForVisit(theForm.visiting.value);
-	why += CheckVehicleOnSite(theForm.vehicleonsite);
-	if(theForm.vehicleonsite[0].checked)
-	{
-	  why += CheckLicensePlate(theForm.licenseplate.value);
-	}
-    why += checkEmail(theForm.email.value);
-    if (why != "") {
-       alert(why);
-       return false;
-alert(error);
+function CheckEMailAddress(sEMailAddress)
+{
+  var sError;
+  sError = "";
+
+  if(sEMailAddress.length > 0)
+  {
+    var reEMailValidationPattern;
+    // e-Mail validation regular expression from HTML 5.1 recommendation (not compliant with RFC 5322) is used: https://www.w3.org/TR/2016/REC-html51-20161101/sec-forms.html#valid-e-mail-address
+    reEMailValidationPattern = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+    if(!reEMailValidationPattern.test(sEMailAddress))
+    {
+      sError = "<?php echo $TEXT_PLEASE_CHECK_YOUR_EMAIL_ADDRESS ?>\n";
     }
-return true;
+  }
+  return sError;
+}
+
+function CheckWholeForm(theForm)
+{
+  var why = "";
+  why += CheckFirstName(theForm.firstname.value);
+  why += CheckLastName(theForm.lastname.value);
+  why += CheckCompanyName(theForm.company.value);
+  why += CheckReasonForVisit(theForm.visiting.value);
+  why += CheckVehicleOnSite(theForm.vehicleonsite);
+  
+  if(theForm.vehicleonsite[0].checked)
+  {
+    why += CheckLicensePlate(theForm.licenseplate.value);
+  }
+
+  why += CheckEMailAddress(theForm.email.value);
+
+  if (why != "")
+  {
+    alert(why);
+    return false;
+  }
+  else
+  {
+    return true;
+  }
 }
 //logout page
 function logoutload() {
@@ -460,7 +484,7 @@ echo '
 		</div>
 	</div>
 	<p>
-	<input type="submit" name="login" value="<?php echo "$TEXT_SIGN_IN_AND_PRINT_VISITOR_BADGE" ?>" OnClick="return checkWholeForm(newvisitor);">
+	<input type="submit" name="login" value="<?php echo "$TEXT_SIGN_IN_AND_PRINT_VISITOR_BADGE" ?>" OnClick="return CheckWholeForm(newvisitor);">
 	<input type="reset" value="<?php echo "$TEXT_CLEAR" ?>">
 	</p>
 	</form>

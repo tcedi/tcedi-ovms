@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -29,4 +29,6 @@ $TEXT_ENTER_YOUR_BADGE_ID_NUMBER = 'Enter your badge ID #...';
 $TEXT_BADGE_ID_NUMBER = 'Badge ID number:';
 $TEXT_SIGN_OUT_FOR_THE_DAY = 'Sign out for the day';
 $TEXT_CANCEL = 'Cancel';
+$TEXT_PLEASE_ENTER_THE_ID_NUMBER_OF_YOUR_BADGE = 'Please enter the ID number of your badge.';
+$TEXT_PLEASE_CHECK_THE_ID_NUMBER_OF_YOUR_BADGE = 'Please check the ID number of your badge. It must be a valid unsigned integer number.';
 ?>

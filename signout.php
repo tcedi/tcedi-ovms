@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -78,18 +78,45 @@ echo '
 </script>
 
 <link rel="stylesheet" type="text/css" href="visitors.css">
-<script type="text/javascript" src="validation.js"></script>
-<SCRIPT type="text/javascript">
+<script type="text/javascript">
 //client side input validation
-function checkWholeForm(theForm) {
-    var why = "";
-    why += checkNumber(theForm.badgeID.value);
-    if (why != "") {
-       alert(why);
-       return false;
-alert(error);
+function CheckUnsignedIntegerString(sUnsignedInteger)
+{
+  var sError;
+  sError = "";
+
+  if(sUnsignedInteger.length > 0)
+  {
+    var reUnsignedIntegerValidationPattern;
+    reUnsignedIntegerValidationPattern = /^[0-9]+$/;
+
+    if(!reUnsignedIntegerValidationPattern.test(sUnsignedInteger))
+    {
+      sError = "<?php echo $TEXT_PLEASE_CHECK_THE_ID_NUMBER_OF_YOUR_BADGE ?>\n";
     }
-return true;
+  }
+  else
+  {
+    sError = "<?php echo $TEXT_PLEASE_ENTER_THE_ID_NUMBER_OF_YOUR_BADGE ?>\n";
+  }
+
+  return sError;
+}
+
+function CheckWholeForm(theForm)
+{
+  var why = "";
+  why += CheckUnsignedIntegerString(theForm.badgeID.value);
+  
+  if (why != "")
+  {
+    alert(why);
+    return false;
+  }
+  else
+  {
+    return true;
+  }
 }
 </script>
 </head>
@@ -97,7 +124,7 @@ return true;
 <div class="signout">
 <h1><?php echo "$TEXT_THANKS_FOR_VISITING $shortname"?></h1>
 <h2><?php echo "$TEXT_ENTER_THE_NUMBER_OF_YOUR_BADGE"?></h2>
-<form action="process.php?language=<?php echo "$sLanguage"?>" autocomplete="off" method="post" name="oldvisitor" onsubmit="return checkWholeForm(this)">
+<form action="process.php?language=<?php echo "$sLanguage"?>" autocomplete="off" method="post" name="oldvisitor" onsubmit="return CheckWholeForm(this)">
 <p>
 <div class="centered-flow">
 <div class="centered-flow-block">
