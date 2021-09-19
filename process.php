@@ -102,10 +102,10 @@ function sanitize($data)
         // remove whitespaces (not a must though)
 	$data = trim($data);
 	// apply stripslashes if magic_quotes_gpc is enabled
-	if(get_magic_quotes_gpc())
-	{
-		$data = stripslashes($data);
-	}
+	// if(get_magic_quotes_gpc())
+	// {
+	// 	$data = stripslashes($data);
+	// }
 	// a mySQL connection is required before using this function
 	$data = mysqli_real_escape_string($database_link, $data);
 	return $data;
@@ -223,27 +223,12 @@ if(isset($_POST['login']))
 {
 	//save record with SQL injection sanitize
 	$location = sanitize($location);
-	$firstn = sanitize($_POST['firstname']);
-	$lastn =sanitize($_POST['lastname']);
-	$company =sanitize($_POST['company']);
-	$visiting =sanitize($_POST['visiting']);
-	$email =sanitize($_POST['email']);
+	$name = sanitize($_POST['name']);
+	$number =sanitize($_POST['number']);
+	$type =sanitize($_POST['type']);
 	$sqltime =sanitize($sqltime);
-	$vehicleonsite = sanitize($_POST['vehicleonsite']);
 
-	if(!is_numeric($vehicleonsite))
-		die('Error : You tried to inject non numeric value in the system !');
-
-	if(isset($_POST['licenseplate']))
-	{
-		$licenseplate = sanitize($_POST['licenseplate']);
-	}
-	else
-	{
-		$licenseplate = '';
-	}
-
-	if (!mysqli_query($database_link, "INSERT INTO $table (Location, FirstName, LastName, Company, Visiting, Email, vehicleonsite, licenseplate, Legal, inDate, outDate, SignOutFlag) VALUES ('$location','$firstn','$lastn','$company','$visiting','$email', $vehicleonsite, '$licenseplate','declined','$sqltime','not checked out',0)"))
+	if (!mysqli_query($database_link, "INSERT INTO $table (Location, Name, Number, Type, inDate, outDate, SignOutFlag) VALUES ('$location','$name','$number','$type','$sqltime','not checked out',0)"))
 	{
 		die('!Error: ' . mysqli_error($database_link));
 	}
