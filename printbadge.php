@@ -85,7 +85,6 @@ if(isset($_GET["visitorID"]) && !empty($_GET["visitorID"])) {
 		$sVisitorBadgeText = $TEXT_VISITOR_BADGE;
 		$sBadgePrintAndRetrievalInstructionsText = $TEXT_BADGE_PRINT_AND_RETRIEVAL_INSTRUCTIONS;
 		$sVisitorName = $row['Name'];
-		$sPleaseReturnToTheReceptionistAndSignOutOnExitText = $TEXT_PLEASE_RETURN_TO_THE_RECEPTIONIST_AND_SIGN_OUT_ON_EXIT;	
 	}
 	
 		echo '
