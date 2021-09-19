@@ -32,15 +32,15 @@ $db_user = 'visitors';//username of MySQL web-app account//
 $db_pwd = 'yourpassword';//password of MySQL web-app account//
 $database = 'visitors';//MySQL database name for this application//
 $table = 'visitors';//MySQL table name in the database//
-$companyname = 'Your Company corp.' ;//Your Company Name//
-$shortname = 'Your Company' ;//Your Company Short Name ie. IBM for International Business Machines//
-$requireLegal = 'yes' ;//Do you want show a non disclosure before badge print//
-$bShowAdditionalMessageBeforeBadgePrint = true; // Set it to true if you want to display an additional message before the printing of the badge, false otherwise. Very useful to give additional instructions to the visitor.
-$bAllowReceptionistToChangeLocation = true; // Set it to true if you want to allow the receptionist to change of location, false otherwise. Very useful if the receptionist must manage several locations and/or if she/he must get access to reception view from her/his computer and not the visitors one !
+$companyname = 'Makerspace Adelaide' ;//Your Company Name//
+$shortname = 'Makerspace Adelaide' ;//Your Company Short Name ie. IBM for International Business Machines//
+$requireLegal = 'no' ;//Do you want show a non disclosure before badge print//
+$bShowAdditionalMessageBeforeBadgePrint = false; // Set it to true if you want to display an additional message before the printing of the badge, false otherwise. Very useful to give additional instructions to the visitor.
+$bAllowReceptionistToChangeLocation = false; // Set it to true if you want to allow the receptionist to change of location, false otherwise. Very useful if the receptionist must manage several locations and/or if she/he must get access to reception view from her/his computer and not the visitors one !
 $bAllowVisitorsToOptionallyEnterTheirEMailAddress = true; // Set it to true if you want to display the optional input field to get the e-Mail address of the visitors, false otherwise.
-$bEnableVirtualKeyboard = true; // Set it to true if you want to enable virtual keyboard support for touch screens, false otherwise.
-$bShowLinkToAdministrationPage = true; // Set it to true if you wish to show a link to the administration page (admin.php) in the footer of the main page (main.php), false otherwise.
-$bShowLinkToReceptionViewPage = true; // Set it to true if you wish to show a link to the reception view page (reception-view.php) in the footer of the main page (main.php), false otherwise.
+$bEnableVirtualKeyboard = false; // Set it to true if you want to enable virtual keyboard support for touch screens, false otherwise.
+$bShowLinkToAdministrationPage = false; // Set it to true if you wish to show a link to the administration page (admin.php) in the footer of the main page (main.php), false otherwise.
+$bShowLinkToReceptionViewPage = false; // Set it to true if you wish to show a link to the reception view page (reception-view.php) in the footer of the main page (main.php), false otherwise.
 
 //following is building site which is stored in database and used in reception view
 //sites are top down with the last rule being less spicific. so interesting traffic is 10.0.2.1
