@@ -34,7 +34,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php
 include 'settings.php';
-
+require_once 'includes/header.php';
 /* BEGIN translations support section */
 $bLanguageSelected=false;
 
@@ -62,8 +62,8 @@ echo "<title>$companyname - $TEXT_VISITOR_BADGE_TITLE</title>"; ?>
 <meta http-equiv="Expires" content="Tue, 01 Jan 2000 12:12:12 GMT">
 <meta http-equiv="Pragma" content="no-cache">
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
-<link href="jquery/css/jquery-ui.min.css" rel="stylesheet">
-<link href="jquery/css/jquery-ui.theme.min.css" rel="stylesheet">
+<!-- <link href="jquery/css/jquery-ui.min.css" rel="stylesheet"> -->
+<!-- <link href="jquery/css/jquery-ui.theme.min.css" rel="stylesheet"> -->
 <script type="text/javascript" src="jquery/js/jquery.min.js"></script>
 <script type="text/javascript" src="jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="jquery/js/jquery-migrate-1.2.1.min.js"></script>
@@ -97,7 +97,7 @@ echo('
 }
 ?>
 
-<link rel="stylesheet" type="text/css" href="visitors.css">
+<!-- <link rel="stylesheet" type="text/css" href="visitors.css"> -->
 <script type="text/javascript" src="validation.js"></script>
 <SCRIPT type="text/javascript">
 //client side validation checking
