@@ -141,9 +141,11 @@ function PerformWindowClose()
 </script>
 </head>
 <body onload="AutoCloseWindowIn(6);">
-<div class="visitors set-font-size">
+<div class="successpage">
+<svg class="icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="DoneIcon"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>
 	';
 	echo "<h1>$TEXT_GENERATING_BADGE</h1>";
+	echo "<h2>$TEXT_PLEASE_SIGN_OUT_ON_EXIT</h2>";
 	// echo "<p>$TEXT_YOUR_BADGE_IS_BEING_GENERATED_AND_PRINTED</p>";
 	
 	// For generating badge in PDF format.
@@ -180,7 +182,7 @@ function PerformWindowClose()
 echo "
 <p>
 ";
-	echo "$TEXT_THIS_WINDOW_WILL_BE_CLOSED_AUTOMATICALLY_IN <strong id=\"secondsleft\"></strong>&nbsp;$TEXT_SECONDS...";
+	echo "$TEXT_THIS_WINDOW_WILL_BE_CLOSED_AUTOMATICALLY_IN <strong class=\"secondsleft\" id=\"secondsleft\"></strong>&nbsp;$TEXT_SECONDS...";
 echo "
 </p>
 ";

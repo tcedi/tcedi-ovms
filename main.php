@@ -225,10 +225,10 @@ echo "</div>";
 	</div>
 	<h3><?php echo $TEXT_EXIT ?></h3>
 	<div>
-	<div class="centered-flow-block">
+	<div class="centered-flow-block centered-flow-block-column">
 	<form name="leave">
 	<p>
-	<input type="button" onclick="javascript:logoutload()" value="<?php echo "$TEXT_SIGN_OUT_LEAVE" ?>">
+	<button type="button" onclick="javascript:logoutload()"><?php echo "$TEXT_SIGN_OUT_LEAVE" ?></button>
 	</p>
 	</form>
 	<p class="note">

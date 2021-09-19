@@ -77,12 +77,9 @@ if (strng == "") {
    error = "You didn't enter a proper number.\n";
 }
      // allow numbers
-    if ((strng.length < 1) || (strng.length > 4)) {
+   if (strng.length > 4 && strng.length !== 10) {
        error = "The input is the wrong length.\n";
     }
-    else if (isNaN(strng)) {
-    error = "The input contains illegal characters.\n";
-    } 
 return error;
 }    
 

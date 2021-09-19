@@ -34,7 +34,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php 
 include 'settings.php';
-
+require_once 'includes/header.php';
 /* BEGIN translations support section */
 if(isset($_GET["language"]) && !empty($_GET["language"]))
 {
@@ -53,37 +53,20 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 echo "<title>$TEXT_SIGN_OUT - $companyname</title>";
 ?>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
-<link href="jquery/css/jquery-ui.min.css" rel="stylesheet">
+
+<!-- <link href="jquery/css/jquery-ui.min.css" rel="stylesheet">
 <link href="jquery/css/jquery-ui.theme.min.css" rel="stylesheet">
 <script type="text/javascript" src="jquery/js/jquery.min.js"></script>
 <script type="text/javascript" src="jquery/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="jquery/js/jquery-migrate-1.2.1.min.js"></script>
-<?php
-if($bEnableVirtualKeyboard === true)
-{
-echo '
-<!-- keyboard widget css & script (required) -->
-<link href="virtualkeyboard/css/keyboard.min.css" rel="stylesheet">
-<script type="text/javascript" src="virtualkeyboard/js/jquery.keyboard.min.js" charset="utf-8"></script>
-<script type="text/javascript" src="virtualkeyboard/layouts/numsmall.js" charset="utf-8"></script>
-';
-}
-?>
 
-<script>
-  $(function() {
-    $( "input[type=submit], input[type=reset], input[type=button]" )
-      .button();
-  });
-</script>
-
-<link rel="stylesheet" type="text/css" href="visitors.css">
+<link rel="stylesheet" type="text/css" href="visitors.css"> -->
 <script type="text/javascript" src="validation.js"></script>
 <SCRIPT type="text/javascript">
 //client side input validation
 function checkWholeForm(theForm) {
     var why = "";
-    why += checkNumber(theForm.badgeID.value);
+    why += checkNumber(theForm.number.value);
     if (why != "") {
        alert(why);
        return false;
@@ -96,37 +79,24 @@ return true;
 <body>
 <div class="signout">
 <h1><?php echo "$TEXT_THANKS_FOR_VISITING $shortname"?></h1>
-<h2><?php echo "$TEXT_ENTER_THE_NUMBER_OF_YOUR_BADGE"?></h2>
 <form action="process.php?language=<?php echo "$sLanguage"?>" autocomplete="off" method="post" name="oldvisitor" onsubmit="return checkWholeForm(this)">
 <p>
 <div class="centered-flow">
 <div class="centered-flow-block">
-<div class="table">
-	<div class="table-row">
-		<div class="table-cell">
-			<p class="set-font-size"><?php echo $TEXT_BADGE_ID_NUMBER ?></p>
+<div class="table-row">
+    <div class="table-cell-right-align">
+			<b><?php echo "$TEXT_ENTER_THE_NUMBER"?></b>
 		</div>
-		<div class="table-cell">
-			<input class="set-font-size" id="badgeidnum" type="text" name="badgeID" placeholder="<?php echo $TEXT_ENTER_YOUR_BADGE_ID_NUMBER ?>" autocomplete="off">
-<?php
-if($bEnableVirtualKeyboard === true)
-{
-echo '
-			<script type="text/javascript">
-				$(\'#badgeidnum\')
-				.keyboard({ layout: \'numsmall\', autoAccept: true })
-				.addTyping();
-			</script>
-';
-}
-?>
+		<div class="table-cell-left-align">
+			<input require id="number" type="text" name="number" placeholder="<?php echo $TEXT_ENTER_YOUR_NUMBER ?>" autofocus autocomplete="off">
 		</div>
 	</div>
 </div>
 </div>
+<div class="actions">
+  <button type="button" class="secondary" onClick="window.location='main.php'"><?php echo $TEXT_CANCEL ?></button>
+  <button type="submit" name="logout"><?php echo $TEXT_SIGN_OUT_FOR_THE_DAY ?></button>
 </div>
-<input type="submit" name="logout" value="<?php echo $TEXT_SIGN_OUT_FOR_THE_DAY ?>"> 
-<input type="button" value="<?php echo $TEXT_CANCEL ?>" onClick="window.location='main.php'">
 </p>
 </form>
 </div>

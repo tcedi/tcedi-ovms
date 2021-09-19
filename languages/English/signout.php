@@ -24,8 +24,8 @@
 
 $TEXT_SIGN_OUT = 'Sign out';
 $TEXT_THANKS_FOR_VISITING = 'Thanks for visiting';
-$TEXT_ENTER_THE_NUMBER_OF_YOUR_BADGE = 'Enter the number of your badge.';
-$TEXT_ENTER_YOUR_BADGE_ID_NUMBER = 'Enter your badge ID #...';
+$TEXT_ENTER_THE_NUMBER = 'Enter your membership number or phone number';
+$TEXT_ENTER_YOUR_NUMBER = 'Enter your membership number or phone number...';
 $TEXT_BADGE_ID_NUMBER = 'Badge ID number:';
 $TEXT_SIGN_OUT_FOR_THE_DAY = 'Sign out for the day';
 $TEXT_CANCEL = 'Cancel';

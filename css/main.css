@@ -4,7 +4,6 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   text-align: center;
   min-height: -webkit-fill-available;
   min-height: 100vh;
@@ -27,7 +26,7 @@ h2 {
 
 .ui-accordion-header {
   box-shadow: 0 2px 5px -1px rgb(50 50 93 / 25%), 0 1px 3px -1px rgb(0 0 0 / 30%);
-  margin: 1em;
+  margin: 1em 1em 0;
   padding: 1em;
   border-radius: 10px;
 }
@@ -41,8 +40,8 @@ h2 {
   background: #fff;
   transition: all ease-in-out 0.3s;
   transition-property: padding, margin;
-  margin: -5em 1em 0;
-  padding: 5em 1em 1em;
+  margin: -4em 1em 0;
+  padding: 4em 1em 1em;
 }
 
 .ui-accordion-content-active {
@@ -50,9 +49,14 @@ h2 {
   border-radius: 10px;
   box-shadow: 0 2px 5px -1px rgb(50 50 93 / 25%), 0 1px 3px -1px rgb(0 0 0 / 30%);
 }
+
 .centered-flow-block {
   flex: 1;
   display: flex;
+}
+
+.centered-flow-block-column {
+  flex-direction: column;
 }
 
 form {
@@ -113,10 +117,46 @@ button {
   text-transform: uppercase;
 }
 
-button[type="reset"] {
+button[type="reset"],
+.secondary {
   color: dimgrey;
 }
 
 .languages a {
   flex: 1;
+}
+
+.signout {
+  padding: 1em;
+}
+
+.signout .table-row {
+  flex: 1;
+}
+
+.successpage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #149f20;
+  color: #fff;
+  font-size: 1.5em;
+  padding: 1em;
+}
+
+.successpage a {
+  color: #fff;
+}
+
+.secondsleft {
+  display: block;
+  font-size: 2em;
+}
+
+.icon {
+  width: 200px;
+  fill: white;
 }

@@ -30,7 +30,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <?php 
 include 'settings.php';
-
+require_once 'includes/header.php';
 /* BEGIN translations support section */
 if(isset($_GET["language"]) && !empty($_GET["language"]))
 {
@@ -49,7 +49,6 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 echo "<title>$TEXT_GOODBYE - $companyname</title>";
 ?>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
-<link rel="stylesheet" type="text/css" href="visitors.css">
 <script type="text/javascript">
 var iSecondsLeft;
 
@@ -89,14 +88,15 @@ function PerformWindowClose()
 </script>
 </head>
 <body onload="AutoCloseWindowIn(10)">
-<div class="signout set-font-size">
+<div class="successpage">
+	<svg class="icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="DoneIcon"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>
 <h1><?php echo "$TEXT_THANKS_AGAIN_FOR_VISITING $shortname"?></h1>
 <h2><?php echo "$TEXT_GOODBYE."?></h2>
 <p class="close">
 	<a href="javascript:PerformWindowClose();"><?php echo "$TEXT_CLOSE_WINDOW"?></a>
 </p>
 <p>
-	<?php echo "$TEXT_THIS_WINDOW_WILL_BE_CLOSED_AUTOMATICALLY_IN <strong id=\"secondsleft\"></strong>&nbsp;$TEXT_SECONDS..."?>
+	<?php echo "$TEXT_THIS_WINDOW_WILL_BE_CLOSED_AUTOMATICALLY_IN <span class=\"secondsleft\" id=\"secondsleft\"></span>&nbsp;$TEXT_SECONDS..."?>
 </p>
 </div>
 </body>

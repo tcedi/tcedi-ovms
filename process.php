@@ -174,47 +174,47 @@ if (isset($_POST['legal']) && $_POST['legal'] == "$TEXT_AGREE")
 //process logout
 if(isset($_POST['logout']))
 {
-	if(is_numeric($_POST["badgeID"]))
+	if(isset($_POST["number"]))
 	{
 		//change SignOutFlag = 1
-		if (!mysqli_query($database_link, "UPDATE $table SET SignOutFlag=1, outDate='$sqltime' WHERE visitorID='$_POST[badgeID]' AND SignOutFlag <> 1"))
+		if (!mysqli_query($database_link, "UPDATE $table SET SignOutFlag=1, outDate='$sqltime' WHERE Number='$_POST[number]' AND SignOutFlag <> 1"))
 		{
 			die('!Error: ' . mysqli_error($database_link));
 		}
 		
-		$bShowBarrierCode = false;
+		// $bShowBarrierCode = false;
 		
-		if($bEnableSimpleBarrierManagementSupport === true)
-		{
-			$sRequest = "SELECT vehicleonsite FROM $table WHERE visitorID='$_POST[badgeID]' AND SignOutFlag = 1";
+		// if($bEnableSimpleBarrierManagementSupport === true)
+		// {
+		// 	$sRequest = "SELECT vehicleonsite FROM $table WHERE visitorID='$_POST[badgeID]' AND SignOutFlag = 1";
 			
-			$rResult = mysqli_query($database_link, $sRequest);
+		// 	$rResult = mysqli_query($database_link, $sRequest);
 			
-			if($rRow = mysqli_fetch_array($rResult, MYSQLI_ASSOC))
-			{
-				if($rRow["vehicleonsite"] == 1)
-				{
-					$bShowBarrierCode = true;
-				}
-			}
+		// 	if($rRow = mysqli_fetch_array($rResult, MYSQLI_ASSOC))
+		// 	{
+		// 		if($rRow["vehicleonsite"] == 1)
+		// 		{
+		// 			$bShowBarrierCode = true;
+		// 		}
+		// 	}
 			
-			mysqli_free_result($rResult);
-		}
+		// 	mysqli_free_result($rResult);
+		// }
 		
-		if($bShowBarrierCode === true)
-		{
-			echo "<script type=\"text/javascript\">barriercodeload(".$_POST["badgeID"].");</script>";
+		// if($bShowBarrierCode === true)
+		// {
+		// 	echo "<script type=\"text/javascript\">barriercodeload(".$_POST["badgeID"].");</script>";
 			//echo "<script type=\"text/javascript\">self.close();</script>";
-		}
-		else
-		{
+		// }
+		// else
+		// {
 			echo "<script type=\"text/javascript\">goodbyeload();</script>";
 			//echo "<script type=\"text/javascript\">self.close();</script>";
-		}
+		// }
 	}
 	else
 	{
-		die("Error : Invalid badge ID provided.");
+		die("Error : Invalid Membership Number or Phone Number provided.");
 	}
 } //end if logout
 
