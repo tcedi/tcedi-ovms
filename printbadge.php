@@ -49,12 +49,12 @@ if(isset($_GET["visitorID"]) && !empty($_GET["visitorID"])) {
 	$visitorID = $_GET["visitorID"] ;
 	//now spit out the badge data
 
-	$result = mysqli_query($database_link, "SELECT FirstName, LastName, Company, Visiting, Legal FROM $table WHERE visitorID = $visitorID ORDER by inDate DESC LIMIT 1");
+	$result = mysqli_query($database_link, "SELECT Name FROM $table WHERE visitorID = $visitorID ORDER by inDate DESC LIMIT 1");
 	
 	$sThisCompanyShortName = "";
 	$sVisitorBadgeText = "";
 	$sBadgePrintAndRetrievalInstructionsText = "";
-	$sVisitorFirstName = "";
+	$sVisitorName = "";
 	$sVisitorLastName = "";
 	$sCompanyLabelText = "";
 	$sVisitorCompany = "";
@@ -84,18 +84,7 @@ if(isset($_GET["visitorID"]) && !empty($_GET["visitorID"])) {
 		$sThisCompanyShortName = $shortname;
 		$sVisitorBadgeText = $TEXT_VISITOR_BADGE;
 		$sBadgePrintAndRetrievalInstructionsText = $TEXT_BADGE_PRINT_AND_RETRIEVAL_INSTRUCTIONS;
-		$sVisitorFirstName = $row['FirstName'];
-		$sVisitorLastName = $row['LastName'];
-		$sCompanyLabelText = $TEXT_COMPANY_LABEL;
-		$sVisitorCompany = $row['Company'];
-		$sReasonForVisitLabelText = $TEXT_REASON_FOR_VISIT_LABEL;
-		$sReasonForVisitValue = $row['Visiting'];
-		$sBadgeIDNumberLabelText = $TEXT_BADGE_ID_NUMBER_LABEL;
-		$sBadgeIDNumberValue = $visitorID;
-		$sEscortRequiredNDALabelText = $TEXT_ESCORT_REQUIRED_NDA_LABEL;
-		$sEscortRequiredNDAValue = $row['Legal'];
-		$sValidDateLabelText = $TEXT_VALID_DATE_LABEL;
-		$sValidDateValue = $day;
+		$sVisitorName = $row['Name'];
 		$sPleaseReturnToTheReceptionistAndSignOutOnExitText = $TEXT_PLEASE_RETURN_TO_THE_RECEPTIONIST_AND_SIGN_OUT_ON_EXIT;	
 	}
 	
@@ -155,38 +144,38 @@ function PerformWindowClose()
 <div class="visitors set-font-size">
 	';
 	echo "<h1>$TEXT_GENERATING_BADGE</h1>";
-	echo "<p>$TEXT_YOUR_BADGE_IS_BEING_GENERATED_AND_PRINTED</p>";
+	// echo "<p>$TEXT_YOUR_BADGE_IS_BEING_GENERATED_AND_PRINTED</p>";
 	
 	// For generating badge in PDF format.
-	require 'fpdf/fpdf_autoprint.php';
-	include './languages/'.$sLanguage.'/badgetemplate.php';
+	// require 'fpdf/fpdf_autoprint.php';
+	// include './languages/'.$sLanguage.'/badgetemplate.php';
 	// For client side destination with automatic display of the print dialog. Please note that no output (echo or else) can be performed in that case !!!!!
 	//$pdf->AutoPrint(true);
 	//$pdf->Output('badge.pdf', 'I');
 	
 	// For server side automatic printing.
-	require_once 'ipp_printing/PrintIPP.php';
+	// require_once 'ipp_printing/PrintIPP.php';
 	
-	$ipp = new PrintIPP();
-	if(array_key_exists($_SERVER['REMOTE_ADDR'], $aIPPPrinterPerClientFixedIPArray))
-	{
-		// One specific IPP printer is defined for the current client fixed IP address.
-		$ipp->setHost($aIPPPrinterPerClientFixedIPArray[$_SERVER['REMOTE_ADDR']]['IPPPrinterOrServerHost']);
-		$ipp->setPort($aIPPPrinterPerClientFixedIPArray[$_SERVER['REMOTE_ADDR']]['IPPPrinterOrServerPort']);
-		$ipp->setPrinterURI($aIPPPrinterPerClientFixedIPArray[$_SERVER['REMOTE_ADDR']]['IPPPrinterURI']);
-	}
-	else
-	{
-		// Default IPP printer is going to be used.
-		$ipp->setHost($sIPPPrinterOrServerHost);
-		$ipp->setPort($sIPPPrinterOrServerPort);
-		$ipp->setPrinterURI($sIPPPrinterURI);
-	}
-	$ipp->setDocumentName($sVisitorBadgeText.' '.$sBadgeIDNumberValue);
-	$ipp->setJobName($sVisitorBadgeText.' '.$sBadgeIDNumberValue, false);
-	$ipp->setUserName($sIPPJobUserName);
-	$ipp->setData($pdf->Output("",'S'));
-	$ipp->printJob();
+	// $ipp = new PrintIPP();
+	// if(array_key_exists($_SERVER['REMOTE_ADDR'], $aIPPPrinterPerClientFixedIPArray))
+	// {
+	// 	// One specific IPP printer is defined for the current client fixed IP address.
+	// 	$ipp->setHost($aIPPPrinterPerClientFixedIPArray[$_SERVER['REMOTE_ADDR']]['IPPPrinterOrServerHost']);
+	// 	$ipp->setPort($aIPPPrinterPerClientFixedIPArray[$_SERVER['REMOTE_ADDR']]['IPPPrinterOrServerPort']);
+	// 	$ipp->setPrinterURI($aIPPPrinterPerClientFixedIPArray[$_SERVER['REMOTE_ADDR']]['IPPPrinterURI']);
+	// }
+	// else
+	// {
+	// 	// Default IPP printer is going to be used.
+	// 	$ipp->setHost($sIPPPrinterOrServerHost);
+	// 	$ipp->setPort($sIPPPrinterOrServerPort);
+	// 	$ipp->setPrinterURI($sIPPPrinterURI);
+	// }
+	// $ipp->setDocumentName($sVisitorBadgeText.' '.$sBadgeIDNumberValue);
+	// $ipp->setJobName($sVisitorBadgeText.' '.$sBadgeIDNumberValue, false);
+	// $ipp->setUserName($sIPPJobUserName);
+	// $ipp->setData($pdf->Output("",'S'));
+	// $ipp->printJob();
 	
 echo "
 <p>
