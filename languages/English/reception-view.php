@@ -40,4 +40,7 @@ $TEXT_VEHICLE_ON_SITE = 'Vehicle on site';
 $TEXT_LICENSE_PLATE_NUMBER = 'License plate number';
 $TEXT_PRINT_PAGE = 'Print the page';
 $TEXT_GO_TO_THE_MAIN_PAGE = 'Go to the main page';
+$TEXT_NAME = 'Name';
+$TEXT_NUMBER = 'Membership or Phone Number';
+$TEXT_TYPE = 'Type';
 ?>

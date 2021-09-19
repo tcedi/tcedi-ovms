@@ -66,10 +66,10 @@ function SecureStringForDB($data)
 {
 	global $database_link;
         // apply stripslashes if magic_quotes_gpc is enabled
-	if(get_magic_quotes_gpc())
-	{
-		$data = stripslashes($data);
-	}
+	// if(get_magic_quotes_gpc())
+	// {
+	// 	$data = stripslashes($data);
+	// }
 	// a mySQL connection is required before using this function
 	$data = mysqli_real_escape_string($database_link, $data);
 	return $data;
@@ -84,16 +84,13 @@ if(isset($_GET["sort"]) && !empty($_GET["sort"])) {$sort = ($_GET["sort"]=="ASC"
 //set sort by column from URL
 if( isset($_GET["orderBy"]) && !empty($_GET["orderBy"]) ) {switch ($_GET["orderBy"]) {
   case 2:
-      $query_mod = " ORDER BY lastName $sort LIMIT $returnRows";
+      $query_mod = " ORDER BY Name $sort LIMIT $returnRows";
       break;
   case 3:
-      $query_mod = " ORDER BY Company $sort LIMIT $returnRows";
+      $query_mod = " ORDER BY Number $sort LIMIT $returnRows";
       break;
    case 4:
-      $query_mod = " ORDER BY Visiting $sort LIMIT $returnRows";
-      break;
-   case 5:
-      $query_mod = " ORDER BY legal $sort LIMIT $returnRows";
+      $query_mod = " ORDER BY Type $sort LIMIT $returnRows";
       break;
    case 6:
       $query_mod = " ORDER BY location $sort LIMIT $returnRows";
@@ -146,13 +143,7 @@ if( isset($_GET["orderBy"]) && !empty($_GET["orderBy"]) ) {switch ($_GET["orderB
       $query_mod = " ORDER BY lastName $sort LIMIT $returnRows";
       break;
   case 3:
-      $query_mod = " ORDER BY companyName $sort LIMIT $returnRows";
-      break;
-   case 4:
-      $query_mod = " ORDER BY visiting $sort LIMIT $returnRows";
-      break;
-   case 5:
-      $query_mod = " ORDER BY legal $sort LIMIT $returnRows";
+      $query_mod = " ORDER BY Name $sort LIMIT $returnRows";
       break;
    case 6:
       $query_mod = " ORDER BY location $sort LIMIT $returnRows";
@@ -177,14 +168,9 @@ $fields_num = mysqli_num_fields($result);
 echo "<table style=\"font-family: verdana; font-size: 10px; border: none;height: 5; width: 100%; \"><tr>";
 echo "<TH ALIGN='left'>$TEXT_VISITOR_ID</TH>";
 echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>6, "sort"=>$sort)))."'>$TEXT_LOCATION</a></TH>";
-echo "<TH ALIGN='left'>$TEXT_FIRST_NAME</TH>";
-echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>2, "sort"=>$sort)))."'>$TEXT_LAST_NAME</a></TH>";
-echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>3, "sort"=>$sort)))."'>$TEXT_COMPANY_NAME</a></TH>";
-echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>4, "sort"=>$sort)))."'>$TEXT_VISIT_REASON</a></TH>";
-echo "<TH ALIGN='left'>$TEXT_EMAIL</TH>";
-echo "<th align='left'>$TEXT_VEHICLE_ON_SITE</th>";
-echo "<th align='left'>$TEXT_LICENSE_PLATE</th>";
-echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>5, "sort"=>$sort)))."'>$TEXT_HAS_SIGNED</a></TH>";
+echo "<TH ALIGN='left'>$TEXT_NAME</TH>";
+echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>3, "sort"=>$sort)))."'>$TEXT_NUMBER</a></TH>";
+echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>4, "sort"=>$sort)))."'>$TEXT_TYPE</a></TH>";
 echo "<TH ALIGN='left'><a href='admin.php?".http_build_query(array_merge($_GET, array("orderBy"=>1, "sort"=>$sort)))."'>$TEXT_ARRIVAL</a></TH>";
 echo "<TH ALIGN='left'>$TEXT_DEPARTURE</TH>";
 echo "<TH ALIGN='left'>$TEXT_GONE</TH>";

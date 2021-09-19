@@ -62,7 +62,7 @@ return $data;
 if(isset($_POST['logout']))
 {
   //change SignOutFlag = 1
-  if (!mysqli_query($database_link, "UPDATE $table SET SignOutFlag=1, outDate='$sqltime' WHERE visitorID='$_POST[badgeID]' ORDER by inDate DESC LIMIT 1"))
+  if (!mysqli_query($database_link, "UPDATE $table SET SignOutFlag=1, outDate='$sqltime' WHERE Number='$_POST[number]' ORDER by inDate DESC LIMIT 1"))
   {
     die('!Error: ' . mysqli_error($database_link));
   }
@@ -103,7 +103,7 @@ $returnRows = "50";
 $sort = "DESC";
 $qDate = $sqldate;
 $query_mod = " ORDER BY inDate $sort LIMIT $returnRows";
-$query="SELECT visitorID, FirstName, LastName, Company, Visiting, vehicleonsite, licenseplate FROM $table WHERE( inDate like '$qDate%' AND Location like '$location') AND SignOutFlag=0 $query_mod";
+$query="SELECT visitorID, Name, Number, Type FROM $table WHERE( inDate like '$qDate%' AND Location like '$location') AND SignOutFlag=0 $query_mod";
 
 // sending query
 $result = mysqli_query($database_link, $query);
@@ -211,22 +211,13 @@ echo "
 	$TEXT_ACTION
 </th>
 <th class=\"text-center\">
-	$TEXT_FIRST_NAME
+	$TEXT_NAME
 </th>
 <th class=\"text-center\">
-	$TEXT_LAST_NAME
+	$TEXT_NUMBER
 </th>
 <th class=\"text-center\">
-	$TEXT_COMPANY
-</th>
-<th class=\"text-center\">
-	$TEXT_VISITING
-</th>
-<th class=\"text-center\">
-	$TEXT_VEHICLE_ON_SITE
-</th>
-<th class=\"text-center\">
-	$TEXT_LICENSE_PLATE_NUMBER
+	$TEXT_TYPE
 </th>
 ";
 echo "</tr>\n";
@@ -238,13 +229,13 @@ $logoutlink = 1;
     // $row is array... foreach( .. ) puts every element
     // of $row to $cell variable
     //place a logout ontop of each row
-    foreach($row as $cell){
+	foreach($row as $cell){
 	echo "<td>";
 	if ($logoutlink == 1) 
 		{echo "
 <form action=\"reception-view.php?".http_build_query($_GET)."\" autocomplete=\"off\" method=\"POST\" name=\"oldvisitor\">
 	<div>
-	<input type=\"hidden\" value=$cell name=\"badgeID\">
+	<input type=\"hidden\" value='".$row[2]."' name=\"number\">
 	<input type=\"submit\" name=\"logout\" value=\"$TEXT_SIGN_OUT_FOR_THE_DAY\" OnClick=\"meta:refresh\">
 	</div>
 </form>
