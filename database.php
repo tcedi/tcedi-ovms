@@ -25,6 +25,7 @@
 */
 
 // database and application variable page called by all pages in application
+date_default_timezone_set('Australia/Adelaide');
 require 'settings.php';
 $sqltime = date("y-m-d G:i:s T");
 $sqldate = date("y-m-d");
