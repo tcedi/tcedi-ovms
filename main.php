@@ -25,6 +25,10 @@
 */
 
 // Main application page.
+$name = isset($_GET["name"]) ? trim($_GET["name"]) : '';
+$type = isset($_GET["type"]) ? trim($_GET["type"]) : '';
+$number = isset($_GET["number"]) ? trim($_GET["number"]) : '';
+$message = $name && $type && $number ? 'Please check if your Membership Number or Phone Number is correct' : '';
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,206 +40,97 @@
 include 'settings.php';
 require_once 'includes/header.php';
 /* BEGIN translations support section */
-$bLanguageSelected=false;
-
-if(isset($_GET["language"]) && !empty($_GET["language"]))
-{
-  $sLanguage = $_GET["language"];
-  if(!file_exists('./languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"])))
-  {
-    $sLanguage = $sDefaultLanguage;
-  }
-  else
-  {
-    $bLanguageSelected=true;
-  }
-}
-else
-{
-  $sLanguage = $sDefaultLanguage;
-}
-
-include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 /* END translations support section */
 
-echo "<title>$companyname - $TEXT_VISITOR_BADGE_TITLE</title>"; ?>
+echo "<title>$companyname</title>"; ?>
 <meta http-equiv="Expires" content="Tue, 01 Jan 2000 12:12:12 GMT">
 <meta http-equiv="Pragma" content="no-cache">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
-<!-- <link href="jquery/css/jquery-ui.min.css" rel="stylesheet"> -->
-<!-- <link href="jquery/css/jquery-ui.theme.min.css" rel="stylesheet"> -->
-<script type="text/javascript" src="jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript">
-  $(function() {
-    $( "#accordion" ).accordion({
-	heightStyle: "content"<?php if($bLanguageSelected===true) echo ", active: 1"; ?>
+$(document).ready(function(){
+	$('#signin_form').validate({
+		rules: {
+			name: {
+				required: true,
+			},
+			number: {
+				required: true,
+				membershipNumberOrPhoneNumber: true
+			},
+			type: {
+				required: true
+			}
+		},
+		messages: {
+			type: {
+				required: "Please select visitor type"
+			}
+		},
+		errorPlacement: function(error, element) {
+			if (element.attr("name") === "type") {
+				$('.types').append(error);
+			} else {
+				error.insertAfter(element);
+			}
+		},
+		ignore: [],
 	});
-  });
-</script>
-<script>
-  $(function() {
-    $( "input[type=submit], input[type=reset], input[type=button]" )
-      .button();
-  });
-</script>
-<script>
-  $(function() {
-    $( "#vehicleonsiteradio" ).buttonset();
-  });
-  </script>
 
-<!-- <link rel="stylesheet" type="text/css" href="visitors.css"> -->
-
-<script type="text/javascript" src="validation.js"></script>
-<SCRIPT type="text/javascript">
-//client side validation checking
-function CheckName(sName)
-{
-  var sError;
-  sError = "";
-  
-  if(sName == "")
-  {
-    sError = "<?php echo $TEXT_PLEASE_ENTER_YOUR_FULL_NAME ?>\n";
-  }
-  
-  return sError;
-}
-
-function CheckNumber(sNumber)
-{
-  var sError;
-  sError = "";
-  
-  if(sNumber == "")
-  {
-    sError = "<?php echo $TEXT_PLEASE_ENTER_YOUR_NUMBER ?>\n";
-  }
-  
-  return sError;
-}
-
-function checkWholeForm(theForm) {
-    var why = "";
-    //why += checkUsername(theForm.vname.value);
-	why += CheckName(theForm.name.value);
-	why += CheckLastName(theForm.lastname.value);
-    why += CheckNumber(theForm.number.value);
-    why += CheckReasonForVisit(theForm.visiting.value);
-	why += CheckVehicleOnSite(theForm.vehicleonsite);
-	if(theForm.vehicleonsite[0].checked)
-	{
-	  why += CheckLicensePlate(theForm.licenseplate.value);
-	}
-    why += checkEmail(theForm.email.value);
-    if (why != "") {
-       alert(why);
-       return false;
-alert(error);
-    }
-return true;
-}
-//logout page
-function logoutload() {
-page = 'signout.php?language=<?php echo $sLanguage ?>'
-window.location=page;
-}
+	$(document).on('keyup', '[name="number"]', function(){
+		$('#wrong_number').remove();
+	})
+});
 </script>
 </head>
 <body>
 <div id="warning"><script type="text/javascript"><!-- // --> </script>
 <noscript><p>$TEXT_JAVASCRIPT_SUPPORT_REQUIRED</p></noscript></div>
-<div class="visitors">
-<img width="200" src="images/makerspacelogo.svg" alt="Makerspace" />
-<h2><?php echo "$TEXT_VISITOR_PLEASE_SIGN_IN"?></h2>
+<div class="greeting">
+	Welcome to Makerspace, Please sign in
 </div>
-<div id="accordion">
-<?php
-/* BEGIN translations support section */
-echo "<h3>".$TEXT_CHOOSE_YOUR_LANGUAGE."</h3>";
-echo "<div>";
-echo "<div class=\"centered-flow-block languages\">";
-
-$dDirectory = dir("./languages/");
-
-while (false !== ($sEntry = $dDirectory->read()))
-{
-   if($sEntry !== "." && $sEntry !== "..")
-   { 
-     echo "<a href=\"".basename($_SERVER["PHP_SELF"])."?language=".$sEntry."\">".$sEntry."<br><img src=\"languages/".$sEntry."/lang.png\"/></a>";
-   }
-}
-$dDirectory->close();
-echo "</div>";
-echo "</div>";
-/* END translations support section */
-?>
-<h3><?php echo $TEXT_ENTRANCE ?></h3>
-<div>
-<div class="centered-flow-block">
-<form class="form" action="process.php?language=<?php echo $sLanguage ?>" autocomplete="off" method="post" name="newvisitor">
-<!--<form action="process.php?language=<?php echo $sLanguage ?>" method="post" name="newvisitor">-->
+<form class="form" id="signin_form" action="process.php" autocomplete="off" method="post" name="newvisitor">
 	<div class="table-row">
-		<div class="table-cell-right-align">
-			<b><?php echo "$TEXT_FULL_NAME"?></b>
-		</div>
-		<div class="table-cell-left-align">
-			<input required id="nameinternational" type="text" name="name" autocomplete="off" placeholder="<?php echo "$TEXT_ENTER_YOUR_FULL_NAME";?>" maxlength="255">
-		</div>
+		<label>Name (First and Last)</label>
+		<input required type="text" name="name" autocomplete="off" maxlength="255" value="<?php echo $name ?>">
 	</div>
 	<div class="table-row">
-		<div class="table-cell-right-align">
-			<b><?php echo "$TEXT_NUMBER" ?></b>
-		</div>
-		<div class="table-cell-left-align">
-			<input required id="numberinternational" type="number" min="0" inputmode="numeric" pattern="[0-9]*" name="number" autocomplete="off" placeholder="<?php echo "$TEXT_ENTER_YOUR_NUMBER";?>" maxlength="10">
-		</div>
+		<label>Membership Number or Phone Number</label>
+		<input class="<?php echo $message ? 'error' : '' ?>" required type="number" min="0" inputmode="numeric" pattern="[0-9]*" name="number" autocomplete="off" maxlength="10"  value="<?php echo $number ?>">
+		<label id="wrong_number" class="error"><?php echo $message ?></label>
 	</div>
 	<div class="table-row">
-		<div class="table-cell-right-align">
-			<b><?php echo "$TEXT_VISITOR_TYPE" ?></b>
-		</div>
-		<div class="table-cell-left-align types">
+		<label>I'm a ...</label>
+		<div class="types">
 			<input value="member" type="radio" name="type" required id="member" />
 			<label for="member" class="type">
-				<?php echo "$TEXT_VISITOR_TYPE_MEMBER" ?>
+				Member
 			</label>
 			<input value="casual user" type="radio" name="type" id="casual_user" />
 			<label class="type" for="casual_user">
-				<?php echo "$TEXT_VISITOR_TYPE_CASUAL_USER" ?>
+				Casual User
 			</label>
 			<input value="guest user" type="radio" name="type" id="guest_user" />
 			<label class="type" for="guest_user">
-				<?php echo "$TEXT_VISITOR_TYPE_GUEST_USER" ?>
+				Guest User
 			</label>
 			<input value="volunteer" type="radio" name="type" id="volunteer" />
 			<label class="type" for="volunteer">
-				<?php echo "$TEXT_VISITOR_TYPE_VOLUNTEER" ?>
+				Volunteer
 			</label>
 		</div>
 	</div>
 	<div class="actions">
-		<button type="reset"><?php echo "$TEXT_CLEAR" ?></button>
-		<button type="submit" name="login" OnClick="return checkWholeForm(newvisitor);"><?php echo "$TEXT_SIGN_IN" ?></button>
+		<button type="reset" onclick="window.location='main.php'">Clear</button>
+		<button type="submit" name="login">Sign In</button>
 	</div>
 </form>
-	</div>
-	</div>
-	<h3><?php echo $TEXT_EXIT ?></h3>
-	<div>
-	<div class="centered-flow-block centered-flow-block-column">
-	<form name="leave">
-	<p>
-	<button type="button" onclick="javascript:logoutload()"><?php echo "$TEXT_SIGN_OUT_LEAVE" ?></button>
-	</p>
-	</form>
-	<p class="note">
-		<?php echo $TEXT_NOTE ?> : <?php echo $TEXT_TO_SIGN_OUT_LEAVE_YOU_DONT_HAVE_TO_FILL_IN_THE_FORM ?>
-	</p>
-	</div>
-	</div>
+<div class="separator">
+	<span>OR</span>
+</div>
+<div class="centered-flow-block centered-flow-block-column">
+<button type="button" onclick="window.location='signout.php'">Sign-out / Leave</button>
+<p class="note">
+	To "Sign-out / Leave", you don't have to fill in the entrance form above.
+</p>
 </div>
 </body>
 </html>
