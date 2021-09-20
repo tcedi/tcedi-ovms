@@ -99,8 +99,6 @@ if(isset($_GET["visitorID"]) && !empty($_GET["visitorID"])) {
 	echo "<title>$companyname - $TEXT_VISITOR_BADGE</title>";
 	require_once 'includes/header.php';
 	echo '
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
-<link rel="stylesheet" type="text/css" href="css/main.css">
 <script type="text/javascript">
 var iSecondsLeft;
 

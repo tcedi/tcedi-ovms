@@ -53,7 +53,6 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 <meta http-equiv="Expires" content="Tue, 01 Jan 2000 12:12:12 GMT">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="refresh" content="1;url=main.php">
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
 <script type="text/javascript">
 //badge page
 function badgeload(ID)

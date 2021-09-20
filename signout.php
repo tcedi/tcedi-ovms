@@ -52,16 +52,8 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 
 echo "<title>$TEXT_SIGN_OUT - $companyname</title>";
 ?>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
+<script type="text/javascript">
 
-<!-- <link href="jquery/css/jquery-ui.min.css" rel="stylesheet">
-<link href="jquery/css/jquery-ui.theme.min.css" rel="stylesheet">
-<script type="text/javascript" src="jquery/js/jquery.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-ui.min.js"></script>
-<script type="text/javascript" src="jquery/js/jquery-migrate-1.2.1.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="visitors.css"> -->
-<script type="text/javascript" src="validation.js"></script>
 <SCRIPT type="text/javascript">
 //client side input validation
 function checkWholeForm(theForm) {
