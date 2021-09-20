@@ -48,7 +48,7 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 
 echo "<title>$TEXT_GOODBYE - $companyname</title>";
 ?>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
+
 <script type="text/javascript">
 var iSecondsLeft;
 
@@ -90,13 +90,13 @@ function PerformWindowClose()
 <body onload="AutoCloseWindowIn(10)">
 <div class="successpage">
 	<svg class="icon" focusable="false" viewBox="0 0 24 24" aria-hidden="true" data-testid="DoneIcon"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"></path></svg>
-<h1><?php echo "$TEXT_THANKS_AGAIN_FOR_VISITING $shortname"?></h1>
-<h2><?php echo "$TEXT_GOODBYE."?></h2>
+<h1>Thanks for visitng Makerspace</h1>
+<h2>See you soon!</h2>
 <p class="close">
-	<a href="javascript:PerformWindowClose();"><?php echo "$TEXT_CLOSE_WINDOW"?></a>
+	<a href="javascript:PerformWindowClose();">Close window</a>
 </p>
 <p>
-	<?php echo "$TEXT_THIS_WINDOW_WILL_BE_CLOSED_AUTOMATICALLY_IN <span class=\"secondsleft\" id=\"secondsleft\"></span>&nbsp;$TEXT_SECONDS..."?>
+	This window will be closed in <span class="secondsleft" id="secondsleft"></span> seconds
 </p>
 </div>
 </body>
