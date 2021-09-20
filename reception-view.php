@@ -51,9 +51,9 @@ global $database_link;
 // remove whitespaces (not a must though)
 $data = trim($data);
 // apply stripslashes if magic_quotes_gpc is enabled
-if(get_magic_quotes_gpc()){
-	$data = stripslashes($data);
-}
+// if(get_magic_quotes_gpc()){
+// 	$data = stripslashes($data);
+// }
 // a mySQL connection is required before using this function
 $data = mysqli_real_escape_string($database_link, $data);
 return $data;
@@ -103,8 +103,7 @@ $returnRows = "50";
 $sort = "DESC";
 $qDate = $sqldate;
 $query_mod = " ORDER BY inDate $sort LIMIT $returnRows";
-$query="SELECT visitorID, Name, Number, Type FROM $table WHERE( inDate like '$qDate%' AND Location like '$location') AND SignOutFlag=0 $query_mod";
-
+$query="SELECT visitorID, Name, Number, Type, inDate FROM $table WHERE( inDate like '$qDate%' AND Location like '$location') AND SignOutFlag=0 $query_mod";
 // sending query
 $result = mysqli_query($database_link, $query);
 $fields_num = mysqli_num_fields($result);
@@ -130,48 +129,19 @@ else
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" sizes="16x16 32x32 64x64"/>
 <link href="libraries/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <body>
-<div class="jumbotron text-center">
-<?php echo "<h1>$companyname, $TEXT_VISITOR_VIEW_FOR $sLocationLabel</h1>";?>
-</div>
-<div class="container">
-<div class="row text-center">
-
-<?php
-/* BEGIN translations support section */
-echo "<p class=\"translation\">".$TEXT_CHOOSE_YOUR_LANGUAGE." ";
-
-$dDirectory = dir("./languages/");
-$bFirstTime = true;
-
-while (false !== ($sEntry = $dDirectory->read()))
-{
-   if($sEntry !== "." && $sEntry !== "..")
-   {
-	 if($bFirstTime == true)
-	 {
-	   $bFirstTime = false;
-	   $sPrefix = "";
-	 }
-	 else
-	 {
-	   $sPrefix = " |";
-	 }
-	 
-     echo $sPrefix." <a href=\"".basename($_SERVER["PHP_SELF"])."?language=".$sEntry."\">".$sEntry."</a>";
-   }
-}
-$dDirectory->close();
-echo "</p>";
-/* END translations support section */
-
-if($bAllowReceptionistToChangeLocation === true)
+	<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<span class="navbar-brand">Visitors in <strong><?php echo $sLocationLabel ?></strong></a>
+		</div>
+		<?php 
+		if($bAllowReceptionistToChangeLocation === true)
 {
 	echo "
-	<form action=\"reception-view.php?language=$sLanguage\" autocomplete=\"off\" method =\"GET\" name=\"changelocation\">
-	<p class=\"changelocation\">
-		$TEXT_CHANGE_LOCATION :&nbsp;
-		<input type=\"hidden\" name=\"language\" value=\"$sLanguage\">
-		<select name=\"location\">
+	<form class=\"navbar-form navbar-right hidden-print\" action=\"reception-view.php\" autocomplete=\"off\" method =\"GET\" name=\"changelocation\">
+	<div class=\"form-group\">
+    <label>Location: </label>	
+	<select class=\"form-control\" name=\"location\" onchange=\"this.form.submit()\">
 	";
 
 	$sRequest = "SELECT DISTINCT Location FROM $table ORDER BY Location ASC";
@@ -196,18 +166,28 @@ if($bAllowReceptionistToChangeLocation === true)
 	echo "
 		<option $sSelected value=\"%\">$TEXT_ALL_LOCATIONS</option>
 		</select>
-		&nbsp;
-		<input type=\"submit\" name=\"ok\" value=\"$TEXT_OK\">
-	</p>
+		</div>
 	</form>
 	";
 }
+		?>
+	</nav>
+
+
+	<div class="container-fluid">
+		<div class="page-header visible-print-block">
+			<h2>Visitors in <strong><?php echo $sLocationLabel ?></h2>
+		</div>
+
+<?php
+
+
 
 echo '<div class="table-responsive">';
 echo "<table class=\"table table-striped table-bordered\"><tr>";
 // printing table headers
 echo "
-<th class=\"text-center\">
+<th class=\"text-center hidden-print\">
 	$TEXT_ACTION
 </th>
 <th class=\"text-center\">
@@ -218,6 +198,9 @@ echo "
 </th>
 <th class=\"text-center\">
 	$TEXT_TYPE
+</th>
+<th class=\"text-center\">
+	In Time
 </th>
 ";
 echo "</tr>\n";
@@ -230,10 +213,10 @@ $logoutlink = 1;
     // of $row to $cell variable
     //place a logout ontop of each row
 	foreach($row as $cell){
-	echo "<td>";
+	echo "<td class=".($logoutlink == 1 ? 'hidden-print' : '').">";
 	if ($logoutlink == 1) 
 		{echo "
-<form action=\"reception-view.php?".http_build_query($_GET)."\" autocomplete=\"off\" method=\"POST\" name=\"oldvisitor\">
+<form onsubmit=\"return confirm('Are you sure?');\" action=\"reception-view.php?".http_build_query($_GET)."\" autocomplete=\"off\" method=\"POST\" name=\"oldvisitor\">
 	<div>
 	<input type=\"hidden\" value='".$row[2]."' name=\"number\">
 	<input type=\"submit\" name=\"logout\" value=\"$TEXT_SIGN_OUT_FOR_THE_DAY\" OnClick=\"meta:refresh\">
@@ -249,7 +232,7 @@ echo '</div>';
 mysqli_free_result($result);
 ?>
 </div>
-<div class="container-fluid">
+<div class="container-fluid hidden-print">
 <div class="row text-center">
 <div class="col-xs-5 col-sm-4 col-md-4">
 <p><a class="btn btn-default btn-lg" href="javascript:window.location.reload(true)"><?php echo "$TEXT_REFRESH";?></a></p>
@@ -259,7 +242,6 @@ mysqli_free_result($result);
 </div>
 <div class="col-xs-12 col-sm-4 col-md-4">
 <p><a class="btn btn-default btn-lg" href="main.php"><?php echo "$TEXT_GO_TO_THE_MAIN_PAGE";?></a></p>
-</div>
 </div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
