@@ -226,8 +226,13 @@ if(isset($_POST['login']))
 	$number =sanitize($_POST['number']);
 	$type =sanitize($_POST['type']);
 	$sqltime =sanitize($sqltime);
+	$sqldate =sanitize($sqldate);
+	$sqlnextdate =sanitize(date('y-m-d', strtotime($sqldate .' +1 day')));
 
-	if (!mysqli_query($database_link, "INSERT INTO $table (Location, Name, Number, Type, inDate, outDate, SignOutFlag) VALUES ('$location','$name','$number','$type','$sqltime','not checked out',0)"))
+	$query = "SELECT visitorID from $table WHERE Number='$_POST[number]' AND inDate >='$sqldate 00:00:00' AND inDate <'$sqlnextdate 00:00:00' AND SignOutFlag=0";
+	$result = mysqli_query($database_link, $query);
+	if(mysqli_num_rows($result) === 0) {
+		if (!mysqli_query($database_link, "INSERT INTO $table (Location, Name, Number, Type, inDate, outDate, SignOutFlag) VALUES ('$location','$name','$number','$type','$sqltime','not checked out',0)"))
 	{
 		die('!Error: ' . mysqli_error($database_link));
 	}
@@ -253,6 +258,9 @@ if(isset($_POST['login']))
 		{
 			echo "<script>badgeload($id)</script>";
 		}
+	}
+	} else {
+		header('Location: main.php?name='.$name.'&type='.$type.'&number='.$number);
 	}
 }
 ?>
