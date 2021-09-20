@@ -53,44 +53,33 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 echo "<title>$TEXT_SIGN_OUT - $companyname</title>";
 ?>
 <script type="text/javascript">
+$(document).ready(function(){
+	$('#number').focus();
 
-<SCRIPT type="text/javascript">
-//client side input validation
-function checkWholeForm(theForm) {
-    var why = "";
-    why += checkNumber(theForm.number.value);
-    if (why != "") {
-       alert(why);
-       return false;
-alert(error);
-    }
-return true;
-}
+	$('#signout_form').validate({
+		rules: {
+			number: {
+				required: true,
+				membershipNumberOrPhoneNumber: true
+			}
+		}
+	});
+});
 </script>
 </head>
 <body>
 <div class="signout">
-<h1><?php echo "$TEXT_THANKS_FOR_VISITING $shortname"?></h1>
-<form action="process.php?language=<?php echo "$sLanguage"?>" autocomplete="off" method="post" name="oldvisitor" onsubmit="return checkWholeForm(this)">
-<p>
-<div class="centered-flow">
-<div class="centered-flow-block">
-<div class="table-row">
-    <div class="table-cell-right-align">
-			<b><?php echo "$TEXT_ENTER_THE_NUMBER"?></b>
-		</div>
-		<div class="table-cell-left-align">
-			<input require id="number" type="text" name="number" placeholder="<?php echo $TEXT_ENTER_YOUR_NUMBER ?>" autofocus autocomplete="off">
-		</div>
-	</div>
-</div>
-</div>
-<div class="actions">
-  <button type="button" class="secondary" onClick="window.location='main.php'"><?php echo $TEXT_CANCEL ?></button>
-  <button type="submit" name="logout"><?php echo $TEXT_SIGN_OUT_FOR_THE_DAY ?></button>
-</div>
-</p>
-</form>
+  <h1><?php echo "$TEXT_THANKS_FOR_VISITING $shortname"?></h1>
+  <form action="process.php?language=<?php echo "$sLanguage"?>" autocomplete="off" method="post" name="oldvisitor" id="signout_form">
+    <div class="table-row">
+      <label><?php echo "$TEXT_ENTER_THE_NUMBER"?></label>
+      <input require id="number" type="text" name="number" autocomplete="off">
+    </div>
+    <div class="actions">
+      <button type="button" class="secondary" onClick="window.location='main.php'">Cancel</button>
+      <button type="submit" name="logout">Sign Out</button>
+    </div>
+  </form>
 </div>
 </body>
 </html>
