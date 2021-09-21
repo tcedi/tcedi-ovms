@@ -1,0 +1,35 @@
+T.C.E.D.I. Open Visitors Management System
+Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+
+T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
+phpVisitorBadge Enhanced
+Copyright (c) 2010-2016 by RKW ACE s.a.
+
+phpVisitorBadge Enhanced is a derivative work based on the original version of phpVisitorBadge.
+phpVisitorBadge
+Copyright (c) 2010 by NCA/KRK.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+This software contains portions of JavaScript validation code derived from code by Apple (apple.code at http://developer.apple.com/internet/webcontent/validation.html).
+This software contains portions of JavaScript count words code from http://home.cogeco.ca/~ve3ll/jstutorc.htm.
+
+This software uses third-party libraries:
+- FPDF 1.6 published under FPDF license. Copyright (c) 2008 by Olivier Plathey.
+- Parts of PHP:Print:IPP 0.83 published under GNU Lesser General Public License Version 2.1. Copyright (c) 2005-2009 by Thomas Harding and other contributors.
+- jQuery UI 1.11.4 published under MIT license. Copyright (c) 2015 by jQuery Foundation and other contributors.
+- jQuery 1.11.2 published under MIT license. Copyright (c) 2005, 2014 by jQuery Foundation, Inc.
+- jQuery Migrate 1.2.1 published under MIT license. Copyright (c) 2005, 2013 by jQuery Foundation, Inc. and other contributors.
+- jQuery UI Virtual Keyboard 1.22.4 published under MIT license. Copyright (c) 2015 by Rob Garrison and other contributors.
+- Bootstrap 3.3.7 published under MIT license. Copyright (c) 2011-2016 by Twitter, Inc.
+- jQuery 3.1.1 published under MIT license. Copyright (c) jQuery Foundation.

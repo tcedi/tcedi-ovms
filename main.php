@@ -104,8 +104,8 @@ For volunteer use only
 	</div>
 	<div class="table-row">
 		<label>Visitor Type</label>
-		<div class="types"><!--
-			<input value="member" type="radio" name="type" required id="member" />
+		<div class="types">
+			<!--<input value="member" type="radio" name="type" required id="member" />
 			<label for="member" class="type">
 				Member
 			</label>
