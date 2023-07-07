@@ -1,5 +1,5 @@
 T.C.E.D.I. Open Visitors Management System
-Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
 T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
 phpVisitorBadge Enhanced
@@ -20,9 +20,6 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-
-This software contains portions of JavaScript validation code derived from code by Apple (apple.code at http://developer.apple.com/internet/webcontent/validation.html).
-This software contains portions of JavaScript count words code from http://home.cogeco.ca/~ve3ll/jstutorc.htm.
 
 This software uses third-party libraries:
 - FPDF 1.6 published under FPDF license. Copyright (c) 2008 by Olivier Plathey.

@@ -1,6 +1,6 @@
 =======================================================================================================
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -146,6 +146,18 @@ Legend:
 [-] = Removed
 [?] = Information
 
+
+T.C.E.D.I. Open Visitors Management System 0.15 ()
+
+[?] All the changes below were backported from 0.20 (development) branch.
+[*] "NOTICE" file has been updated to reflect the removal of obsolete files.
+[-] Obsolete validation.js file has been removed.
+[-] validation.js is not used in signout.php anymore.
+[+] New translations for badge ID number check texts added for signout.php (English and French).
+[+] CheckUnsignedIntegerString JavaScript function added in signout.php.
+[-] validation.js is not used in main.php anymore.
+[+] New translations for e-Mail address check texts added for main.php (English and French).
+[+] CheckEMailAddress JavaScript function added in main.php.
 
 T.C.E.D.I. Open Visitors Management System 0.10 (2016-11-16)
 
