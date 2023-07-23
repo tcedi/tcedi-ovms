@@ -1,5 +1,5 @@
 <?php
-require('fpdf.php');
+require('fpdf/fpdf.php');
 
 class FPDF_JavaScript extends FPDF {
 

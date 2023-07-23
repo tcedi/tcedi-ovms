@@ -74,7 +74,7 @@ class PrintIPP extends BasicIPP {
             return FALSE;
                        
         if (is_readable($this->data)){
-            self::_putDebug( _("Printing a FILE\n"),3); 
+            self::_putDebug( "Printing a FILE\n",3); 
                 
             $this->output = $this->stringjob;
            
@@ -90,7 +90,7 @@ class PrintIPP extends BasicIPP {
                 $post_values = array_merge($post_values,array("Filetype"=>"TEXT"));
             
         } else {                      
-            self::_putDebug( _("Printing DATA\n"),3); 
+            self::_putDebug( "Printing DATA\n",3); 
             
             $this->output = $this->stringjob;
             $this->output .= $this->datahead;    
@@ -159,7 +159,7 @@ class PrintIPP extends BasicIPP {
         if (!$this->_stringCancel($job_uri))
         return FALSE;
                        
-        self::_putDebug( _("Cancelling Job $job_uri\n"),3); 
+        self::_putDebug( "Cancelling Job $job_uri\n",3); 
             
         $this->output = $this->stringjob;
           
@@ -200,7 +200,7 @@ class PrintIPP extends BasicIPP {
         self::_putDebug( sprintf("*************************\nDate: %s\n*************************\n\n",date('Y-m-d H:i:s')));
         
                        
-        self::_putDebug( _("Validate Job\n"),2); 
+        self::_putDebug( "Validate Job\n",2); 
                 
         if (!isset($this->setup->charset))
             self::setCharset('us-ascii');
@@ -216,8 +216,8 @@ class PrintIPP extends BasicIPP {
             if (array_key_exists(0,$this->available_printers))
                self::setPrinterURI($this->available_printers[0]);
             else {
-                trigger_error(_("_stringJob: Printer URI is not set: die"),E_USER_WARNING);
-                self::_putDebug( _("_stringJob: Printer URI is not set: die\n"),3);
+                trigger_error("_stringJob: Printer URI is not set: die",E_USER_WARNING);
+                self::_putDebug( "_stringJob: Printer URI is not set: die\n",3);
                 self::_errorLog(" Printer URI is not set, die",2);
                 return FALSE;
                 }
@@ -286,7 +286,7 @@ class PrintIPP extends BasicIPP {
                          . chr(0x03); // end-of-attributes | end-of-attributes-tag
         
 
-        self::_putDebug( sprintf(_("String sent to the server is:\n%s\n"), $this->stringjob));
+        self::_putDebug( sprintf("String sent to the server is:\n%s\n", $this->stringjob));
  
         $this->output = $this->stringjob;
           
@@ -340,8 +340,8 @@ class PrintIPP extends BasicIPP {
             if (array_key_exists(0,$this->available_printers))
                self::setPrinterURI($this->available_printers[0]);
             else {
-                trigger_error(_("_stringJob: Printer URI is not set: die"),E_USER_WARNING);
-                self::_putDebug( _("_stringJob: Printer URI is not set: die\n"),3);
+                trigger_error("_stringJob: Printer URI is not set: die",E_USER_WARNING);
+                self::_putDebug( "_stringJob: Printer URI is not set: die\n",3);
                 self::_errorLog(" Printer URI is not set, die",2);
                 return FALSE;
                 }
@@ -367,9 +367,9 @@ class PrintIPP extends BasicIPP {
                          . $printerattributes
                          . chr(0x03); // end-of-attributes | end-of-attributes-tag
                          
-        self::_putDebug(sprintf(_("String sent to the server is:\n%s\n"), $this->stringjob));
+        self::_putDebug(sprintf("String sent to the server is:\n%s\n", $this->stringjob));
         
-        self::_putDebug(sprintf(_("Getting printer attributes of %s\n"),$this->printer_uri),2); 
+        self::_putDebug(sprintf("Getting printer attributes of %s\n",$this->printer_uri),2); 
             
         $this->output = $this->stringjob;
           
@@ -387,10 +387,10 @@ class PrintIPP extends BasicIPP {
             $this->status = array_merge($this->status,array($this->serveroutput->status));
             
             if  ($this->serveroutput->status == "successfull-ok")
-                self::_errorLog(sprintf(_("getting printer attributes of %s: %s"),$this->printer_uri,
+                self::_errorLog(sprintf("getting printer attributes of %s: %s",$this->printer_uri,
                                                                         $this->serveroutput->status),3);
             else 
-                self::_errorLog(sprintf(_("getting printer attributes of %s: %s"),$this->printer_uri,
+                self::_errorLog(sprintf("getting printer attributes of %s: %s",$this->printer_uri,
                                                                         $this->serveroutput->status),1);
 
             return $this->serveroutput->status;
@@ -399,7 +399,7 @@ class PrintIPP extends BasicIPP {
             $this->status = array_merge($this->status,array("OPERATION FAILED"));
             self::_errorLog(date("Y-m-d H:i:s : ")
                         .basename($_SERVER['PHP_SELF'])
-                        .sprintf(_("getting printer's attributes of %s : OPERATION FAILED"),
+                        .sprintf("getting printer's attributes of %s : OPERATION FAILED",
                                      $this->printer_uri),3);
     
     return false;
@@ -425,8 +425,8 @@ class PrintIPP extends BasicIPP {
             if (array_key_exists(0,$this->available_printers))
                self::setPrinterURI($this->available_printers[0]);
             else {
-                trigger_error(_("getJobs: Printer URI is not set: die"),E_USER_WARNING);
-                self::_putDebug( _("_stringJob: Printer URI is not set: die\n"),3);
+                trigger_error("getJobs: Printer URI is not set: die",E_USER_WARNING);
+                self::_putDebug( "_stringJob: Printer URI is not set: die\n",3);
                 self::_errorLog("getJobs: Printer URI is not set, die",2);
                 return FALSE;
                 }
@@ -516,9 +516,9 @@ class PrintIPP extends BasicIPP {
         }
         $this->stringjob .= chr(0x03); // end-of-attributes | end-of-attributes-tag
                          
-        self::_putDebug(sprintf(_("String sent to the server is:\n%s\n"), $this->stringjob));
+        self::_putDebug(sprintf("String sent to the server is:\n%s\n", $this->stringjob));
         
-        self::_putDebug(sprintf(_("getting jobs of %s\n"),$this->printer_uri),2); 
+        self::_putDebug(sprintf("getting jobs of %s\n",$this->printer_uri),2); 
             
         $this->output = $this->stringjob;
           
@@ -537,10 +537,10 @@ class PrintIPP extends BasicIPP {
             $this->status = array_merge($this->status,array($this->serveroutput->status));
             
             if ($this->serveroutput->status == "successfull-ok")
-                self::_errorLog(sprintf(_("getting jobs of printer %s: "),$this->printer_uri)
+                self::_errorLog(sprintf("getting jobs of printer %s: ",$this->printer_uri)
                             .$this->serveroutput->status,3);
             else
-                 self::_errorLog(sprintf(_("getting jobs of printer %s: "),$this->printer_uri)
+                 self::_errorLog(sprintf("getting jobs of printer %s: ",$this->printer_uri)
                                              .$this->serveroutput->status,1);
                                              
             return $this->serveroutput->status;
@@ -549,7 +549,7 @@ class PrintIPP extends BasicIPP {
         $this->status = array_merge($this->status,array("OPERATION FAILED"));
         self::_errorLog(date("Y-m-d H:i:s : ")
                         .basename($_SERVER['PHP_SELF'])
-                        .sprintf(_("getting jobs of %s : OPERATION FAILED"),
+                        .sprintf("getting jobs of %s : OPERATION FAILED",
                                      $this->printer_uri),3);
             
     return false;
@@ -563,7 +563,7 @@ class PrintIPP extends BasicIPP {
         $this->jobs_uri = array_merge($this->jobs_uri,array(""));
         
         if (!$job_uri) {
-            trigger_error(_("getJobAttributes: Job URI is not set, die."));
+            trigger_error("getJobAttributes: Job URI is not set, die.");
             return FALSE;
             }
  
@@ -580,8 +580,8 @@ class PrintIPP extends BasicIPP {
             if (array_key_exists(0,$this->available_printers))
                self::setPrinterURI($this->available_printers[0]);
             else {
-                trigger_error(_("getJobs: Printer URI is not set: die"),E_USER_WARNING);
-                self::_putDebug( _("_stringJob: Printer URI is not set: die\n"),3);
+                trigger_error("getJobs: Printer URI is not set: die",E_USER_WARNING);
+                self::_putDebug( "_stringJob: Printer URI is not set: die\n",3);
                 self::_errorLog("getJobs: Printer URI is not set, die",2);
                 return FALSE;
                 }
@@ -643,7 +643,7 @@ class PrintIPP extends BasicIPP {
                 case 'all':
                     break;
                 default:
-                    trigger_error(_('not a valid attribute group: ').$attributes_group,E_USER_NOTICE);
+                    trigger_error('not a valid attribute group: '.$attributes_group,E_USER_NOTICE);
                     $attributes_group = '';
                     break;
                 }
@@ -656,9 +656,9 @@ class PrintIPP extends BasicIPP {
             }
         $this->stringjob .= chr(0x03); // end-of-attributes | end-of-attributes-tag
                          
-        self::_putDebug(sprintf(_("String sent to the server is:\n%s\n"), $this->stringjob));
+        self::_putDebug(sprintf("String sent to the server is:\n%s\n", $this->stringjob));
         
-        self::_putDebug(sprintf(_("getting jobs of %s\n"),$this->printer_uri),2); 
+        self::_putDebug(sprintf("getting jobs of %s\n",$this->printer_uri),2); 
             
         $this->output = $this->stringjob;
           
@@ -676,10 +676,10 @@ class PrintIPP extends BasicIPP {
             $this->status = array_merge($this->status,array($this->serveroutput->status));
             
             if ($this->serveroutput->status == "successfull-ok")
-                self::_errorLog(sprintf(_("getting job attributes for %s: "),$job_uri)
+                self::_errorLog(sprintf("getting job attributes for %s: ",$job_uri)
                             .$this->serveroutput->status,3);
             else
-                 self::_errorLog(sprintf(_("getting job attributes for %s: "),$job_uri)
+                 self::_errorLog(sprintf("getting job attributes for %s: ",$job_uri)
                                              .$this->serveroutput->status,1);
                                              
             return $this->serveroutput->status;
@@ -688,7 +688,7 @@ class PrintIPP extends BasicIPP {
         $this->status = array_merge($this->status,array("OPERATION FAILED"));
         self::_errorLog(date("Y-m-d H:i:s : ")
                         .basename($_SERVER['PHP_SELF'])
-                        .sprintf(_("getting jobs attributes of %s : OPERATION FAILED"),
+                        .sprintf("getting jobs attributes of %s : OPERATION FAILED",
                                      $job_uri),3);
             
     return false;
@@ -725,12 +725,12 @@ class PrintIPP extends BasicIPP {
     // }}}
 
     // {{{ resetError ($error)
-        trigger_error(sprintf(_('Setting Error %s'),$error),E_USER_NOTICE);
+        trigger_error(sprintf('Setting Error %s',$error),E_USER_NOTICE);
     }
     
     public function resetError ($error) {
         unset ($this->error_generation->$error);
-        trigger_error(sprintf(_('Reset Error %s'),$error),E_USER_NOTICE);
+        trigger_error(sprintf('Reset Error %s',$error),E_USER_NOTICE);
     }
     // }}}
 
@@ -754,9 +754,13 @@ class PrintIPP extends BasicIPP {
     // {{{ _setJobId()
     protected function _setJobId() {
 
+        if (!isset($this->meta->jobid))
+        {
+          $this->meta->jobid = 0;
+        }
         $this->meta->jobid +=1;
         $prepend = '';
-        $prepend_length = 4 - strlen($this->meta->jobid);
+        $prepend_length = 4 - strlen(strval($this->meta->jobid));
         for ($i = 0; $i < $prepend_length ; $i++ )
             $prepend .= '0';
 
@@ -1799,7 +1803,7 @@ class PrintIPP extends BasicIPP {
                     break;
                 default:
                     $j += 1;
-                    $this->serveroutput->response[$j]['attributes'] = sprintf(_("0x%x (%u) : attributes tag Unknown (reserved for future versions of IPP"),$tag,$tag);
+                    $this->serveroutput->response[$j]['attributes'] = sprintf("0x%x (%u) : attributes tag Unknown (reserved for future versions of IPP",$tag,$tag);
                     $this->index = 0;
                     $this->_parsing->offset += 1;
                     break;
@@ -1871,7 +1875,7 @@ class PrintIPP extends BasicIPP {
                          . $this->meta->message
                          . chr(0x03); // end-of-attributes | end-of-attributes-tag
                          
-        self::_putDebug( sprintf(_("String sent to the server is:\n%s\n"), $this->stringjob));
+        self::_putDebug( sprintf("String sent to the server is:\n%s\n", $this->stringjob));
         return TRUE;
     }
     // }}}

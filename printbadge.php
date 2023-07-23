@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2023 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -156,8 +156,14 @@ function PerformWindowClose()
 	';
 	echo "<h1>$TEXT_GENERATING_BADGE</h1>";
 	echo "<p>$TEXT_YOUR_BADGE_IS_BEING_GENERATED_AND_PRINTED</p>";
+	// The following line should only be uncommented for debugging purposes and checking the font path for FPDF.
+	//echo "<!-- Font path: ".$root_path_www_ending_with_slash.'fpdf/fpdf/font/'." -->";
 	
 	// For generating badge in PDF format.
+	if($bTryToDefineFpdfFontpathConstant === true)
+	{
+		define('FPDF_FONTPATH', $root_path_www_ending_with_slash.'fpdf/fpdf/font/');
+	}
 	require 'fpdf/fpdf_autoprint.php';
 	include './languages/'.$sLanguage.'/badgetemplate.php';
 	// For client side destination with automatic display of the print dialog. Please note that no output (echo or else) can be performed in that case !!!!!
@@ -168,6 +174,10 @@ function PerformWindowClose()
 	require_once 'ipp_printing/PrintIPP.php';
 	
 	$ipp = new PrintIPP();
+	if($bEnableIPPLogging === true)
+	{
+		$ipp->setLog($sLoggingDestination, $sLoggingType, $iLoggingLevel);
+	}
 	if(array_key_exists($_SERVER['REMOTE_ADDR'], $aIPPPrinterPerClientFixedIPArray))
 	{
 		// One specific IPP printer is defined for the current client fixed IP address.

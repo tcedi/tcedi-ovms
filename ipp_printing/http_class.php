@@ -74,7 +74,7 @@ class httpException extends Exception
  }
  public function getErrorFormatted ()
  {
-  return sprintf ("[http_class]: %s -- "._(" file %s, line %s"),
+  return sprintf ("[http_class]: %s -- "." file %s, line %s",
     $this->getMessage (), $this->getFile (), $this->getLine ());
  }
  public function getErrno ()
@@ -108,6 +108,20 @@ function error2string($value)
  foreach($level_names as $level=>$name)
   if(($value&$level)==$level) $levels[]=$name;
  return implode(' | ',$levels);
+}
+
+function legacy_each($array)
+{
+    $key = key($array);
+    $value = current($array);
+    $each = is_null($key) ? false : [
+        1        => $value,
+        'value'    => $value,
+        0        => $key,
+        'key'    => $key,
+    ];
+    next($array);
+    return $each;
 }
 
 /***********************
@@ -206,7 +220,7 @@ class http_class
    $url = preg_split ("#/#", preg_replace ("#^/{1,}#", '', $url), 2);
    $url = $url[0];
    $port = $this->port;
-   $error = sprintf (_("Cannot resolve url: %s"), $url);
+   $error = sprintf ("Cannot resolve url: %s", $url);
    $ip = gethostbyname ($url);
    $ip = @gethostbyaddr ($ip);
    if (!$ip)
@@ -219,7 +233,7 @@ class http_class
   }
   $this->connection = @fsockopen ($transport_type.$url, $port, $errno, $errstr, $this->timeout);
   $error =
-   sprintf (_('Unable to connect to "%s%s port %s": %s'), $transport_type,
+   sprintf ('Unable to connect to "%s%s port %s": %s', $transport_type,
      $url, $port, $errstr);
   if (!$this->connection)
   {
@@ -232,7 +246,7 @@ class http_class
  public function SendRequest ($arguments)
  {
   $error =
-   sprintf (_('Streaming request failed to %s'), $arguments['RequestURI']);
+   sprintf ('Streaming request failed to %s', $arguments['RequestURI']);
   $result = self::_StreamRequest ($arguments);
   if (!$result[0])
   {
@@ -244,7 +258,7 @@ class http_class
    return array (true, "success");
   }
   $headers = array_keys ($this->reply_headers);
-  $error = _("need authentication but no mechanism provided");
+  $error = "need authentication but no mechanism provided";
   if (!in_array ("www-authenticate", $headers))
   {
    return $this->_HttpError ($error, E_USER_WARNING);
@@ -265,7 +279,7 @@ class http_class
 
    default:
     $error =
-     sprintf (_("need '%s' authentication mechanism, but have not"),
+     sprintf ("need '%s' authentication mechanism, but have not",
        $authtype[0]);
     return $this->_HttpError ($error, E_USER_WARNING);
     break;
@@ -348,13 +362,13 @@ class http_class
   $this->reply_body = "";
   if (!$this->connected)
   {
-   return _HttpError (_("not connected"), E_USER_WARNING);
+   return _HttpError ("not connected", E_USER_WARNING);
   }
   $this->arguments = $arguments;
   $content_length = 0;
   foreach ($this->arguments["BodyStream"] as $argument)
   {
-   list ($type, $value) = each ($argument);
+   list ($type, $value) = legacy_each ($argument);
    reset ($argument);
    if ($type == "Data")
    {
@@ -370,7 +384,7 @@ class http_class
     {
      $length = 0;
      return
-      _HttpError (sprintf (_("%s: file is not readable"), $value),
+      _HttpError (sprintf ("%s: file is not readable", $value),
         E_USER_WARNING);
     }
    }
@@ -379,12 +393,12 @@ class http_class
     $length = 0;
     return
      _HttpError (sprintf
-       (_("%s: not a valid argument for content"), $type),
+       ("%s: not a valid argument for content", $type),
        E_USER_WARNING);
    }
    $content_length += $length;
   }
-  $this->request_body = sprintf (_("%s Bytes"), $content_length);
+  $this->request_body = sprintf ("%s Bytes", $content_length);
   $this->headers["Content-Length"] = $content_length;
   $this->arguments["Headers"] =
    array_merge ($this->headers, $this->arguments["Headers"]);
@@ -392,7 +406,7 @@ class http_class
   {
    return
     _HttpError (sprintf
-      (_("%s: method not implemented"),
+      ("%s: method not implemented",
        $arguments["RequestMethod"]), E_USER_WARNING);
   }
   $string =
@@ -400,7 +414,7 @@ class http_class
   $this->request_headers[$string] = '';
   if (!$this->_streamString ($string))
   {
-   return _HttpError (_("Error while puts POST operation"),
+   return _HttpError ("Error while puts POST operation",
      E_USER_WARNING);
   }
   foreach ($this->arguments["Headers"] as $header => $value)
@@ -409,19 +423,19 @@ class http_class
    $this->request_headers[$header] = $value;
    if (!$this->_streamString ($string))
    {
-    return _HttpError (_("Error while puts HTTP headers"),
+    return _HttpError ("Error while puts HTTP headers",
       E_USER_WARNING);
    }
   }
   $string = "\r\n";
   if (!$this->_streamString ($string))
   {
-   return _HttpError (_("Error while ends HTTP headers"),
+   return _HttpError ("Error while ends HTTP headers",
      E_USER_WARNING);
   }
   foreach ($this->arguments["BodyStream"] as $argument)
   {
-   list ($type, $value) = each ($argument);
+   list ($type, $value) = legacy_each ($argument);
    reset ($argument);
    if ($type == "Data")
    {
@@ -431,7 +445,7 @@ class http_class
      $string = substr ($value, $streamed_length, $this->window_size);
      if (!$this->_streamString ($string))
      {
-      return _HttpError (_("error while sending body data"),
+      return _HttpError ("error while sending body data",
         E_USER_WARNING);
      }
      $streamed_length += $this->window_size;
@@ -447,12 +461,12 @@ class http_class
       if (gettype ($block = @fread ($file, $this->window_size)) !=
         "string")
       {
-       return _HttpError (_("cannot read file to upload"),
+       return _HttpError ("cannot read file to upload",
          E_USER_WARNING);
       }
       if (!$this->_streamString ($block))
       {
-       return _HttpError (_("error while sending body data"),
+       return _HttpError ("error while sending body data",
          E_USER_WARNING);
       }
      }
@@ -466,7 +480,7 @@ class http_class
  {
   if (!$this->connected)
   {
-   return array (false, _("not connected"));
+   return array (false, "not connected");
   }
   $this->reply_headers = array ();
   $this->reply_body = "";
@@ -554,7 +568,7 @@ class http_class
 
     default:
     return _HttpError(
-      sprintf (_("digest Authorization: algorithm '%s' not implemented"),
+      sprintf ("digest Authorization: algorithm '%s' not implemented",
        $algorithm),
       E_USER_WARNING);
     return false;
@@ -572,7 +586,7 @@ class http_class
    else
    {
     self::_HttpError(
-      sprintf (_("digest Authorization: algorithm '%s' not implemented"),
+      sprintf ("digest Authorization: algorithm '%s' not implemented",
        $qop),
       E_USER_WARNING);
     return false;

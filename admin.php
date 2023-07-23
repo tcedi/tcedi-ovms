@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2023 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -66,7 +66,7 @@ function SecureStringForDB($data)
 {
 	global $database_link;
         // apply stripslashes if magic_quotes_gpc is enabled
-	if(get_magic_quotes_gpc())
+	if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc())
 	{
 		$data = stripslashes($data);
 	}

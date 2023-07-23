@@ -1,7 +1,7 @@
 <?php
 /*
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2023 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -92,6 +92,10 @@ $sSimpleBarrierManagementDataBase = 'barrier'; // Simple Barrier Management's da
 $sSimpleBarrierManagementBarrierCodeTable = 'barrier_code'; // The name of the barrier code table.
 /* END Simple Barrier Management support section */
 
+/* BEGIN FPDF specific options section */
+$bTryToDefineFpdfFontpathConstant = false; //true to try to define FPDF_FONTPATH constant for FPDF (used for badge printing), false otherwise.
+/* END FPDF specific options section */
+
 /* BEGIN Server side printing section */
 $sIPPPrinterOrServerHost = '127.0.0.1'; // The host name or the IP address of the IPP Printer or IPP Server.
 $sIPPPrinterOrServerPort = '631'; // By default it is set to IANA assigned port (631).
@@ -102,6 +106,14 @@ $aIPPPrinterPerClientFixedIPArray['192.168.1.20'] = array();
 $aIPPPrinterPerClientFixedIPArray['192.168.1.20']['IPPPrinterOrServerHost'] = '192.168.1.20';
 $aIPPPrinterPerClientFixedIPArray['192.168.1.20']['IPPPrinterOrServerPort'] = '631';
 $aIPPPrinterPerClientFixedIPArray['192.168.1.20']['IPPPrinterURI'] = '/printers/DYMO-LabelWriter-450-Turbo';
+
+$bEnableIPPLogging = true; //true to enable IPP logging, false otherwise.
+$sLoggingDestination = ''; // Log destination. Should contain the log file name in case of 'file' logging.
+                           // Should be the destination e-Mail address in case of 'e-mail' logging.
+                           // Is not used in case of 'logger' logging.
+                           // See PHP:Print:IPP documentation and source code for more details.
+$sLoggingType = 'logger';  // Log type. It can be 'logger', 'file' or 'e-mail'.
+$iLoggingLevel = 2; // Log level.
 /* END Server side printing section */
 
 // The following variables should not be edited. These ones are application variables.
@@ -112,8 +124,13 @@ $script_base = "$base_url$directory";
 $root_path_www = $_SERVER['DOCUMENT_ROOT'];
 $remove_end  = strrchr($root_path_www,"/");
 $root_path   = preg_replace("$remove_end/", '', $root_path_www);
+$root_path_www_ending_with_slash = $root_path_www;
+if(strcmp(substr($root_path_www, -1, 1), '/')!==0)
+{
+    $root_path_www_ending_with_slash = $root_path_www_ending_with_slash.'/';
+}
 //$url_base    = "$base_url$directory";
 //$url_base    = ereg_replace("main.php", '', "$_SERVER[PATH_TRANSLATED]");
-$appVer      = '0.10';
+$appVer      = '0.15';
 $subnetLH = '::1';//subnet for Localhost Location match regex//
 ?>

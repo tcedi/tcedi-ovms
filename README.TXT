@@ -1,6 +1,6 @@
 =======================================================================================================
    T.C.E.D.I. Open Visitors Management System
-   Copyright (c) 2016-2017 by T.C.E.D.I. (Jean-Denis Tenaerts)
+   Copyright (c) 2016-2023 by T.C.E.D.I. (Jean-Denis Tenaerts)
 
    T.C.E.D.I. Open Visitors Management System is a derivative work based on phpVisitorBadge Enhanced.
    phpVisitorBadge Enhanced
@@ -39,16 +39,16 @@ FEATURES
 - Search/basic reporting for administrator;
 
 SYSTEM REQUIREMENTS FOR SERVER SIDE
-- Apache 2.2, Apache 2.4 or newer (should also work with other HTTP servers like Nginx or IIS [compatibility with IIS confirmed by users]);
-- PHP 5.6, PHP 7 or newer (should also work with older versions of PHP 5, but they are not supported anymore...);
-- MySQL 5.5, MySQL 5.7 or newer (should also work with older versions of MySQL 5, but they are not supported anymore...);
+- Apache 2.2, Apache 2.4 or newer (should also work with other HTTP servers like Nginx [compatibility with Nginx confirmed by users] or IIS [compatibility with IIS confirmed by users]);
+- PHP 5.6, PHP 7, PHP 8 or newer (should also work with older versions of PHP 5, but they are not supported anymore...);
+- MySQL 5.5, MySQL 5.7 or newer, MariaDB 10 or newer (should also work with older versions of MySQL 5, but they are not supported anymore...);
 
 SYSTEM REQUIREMENTS FOR CLIENTS SIDE
 - Modern browser supporting HTML 5 with Ecmascript (Javascript) enabled;
 
 SYSTEM REQUIREMENTS FOR LABELS PRINTING
 - DYMO LabelWriter 450/DYMO LabelWriter 450 Turbo or compatible DYMO LabelWriter printer with 99012 labels, if you wish to use the existing Badge template as is.
-- IPP server must be used for sharing the printer (only tested with CUPS), but should also work with IPP network label printers. Of course, a linux client can be used as IPP server or if you use a Windows client, you can use a rasperry Pi, other a card board, or a virtual machine with Linux to share the printer with CUPS.
+- IPP server must be used for sharing the printer (only tested with CUPS), but should also work with IPP network label printers. Of course, a linux client can be used as IPP server or if you use a Windows client, you can use a raspberry Pi, other a card board, or a virtual machine with Linux to share the printer with CUPS.
 
 ABOUT
 
@@ -96,12 +96,12 @@ CREATE TABLE IF NOT EXISTS visitors
 UPGRADE
 
 - Uncompress the archive into a directory and edit "settings.php" variables for your company using your current "settings.php" as a basis.
-- [For upgrade from the original version of phpVisitorBadge] Replace the image "badgelogo.jpg" by the logo of your company. The image should be of size 188x136 and in grayscale.
+- [For upgrade from the original version of phpVisitorBadge, any version of phpVisitorBadge Enhanced or any previous version of T.C.E.D.I. Open Visitors Management System] Replace the image "badgelogo.jpg" by the logo of your company. The image should be of size 188x136 and in grayscale.
 - [Can be done later] If you use an Apache server, you should use "htaccess.dist" as a basis to create your own ".htaccess" file. If you use another HTTP server, use "htaccess.dist" as a hint for securing accesses to administration and reception view pages.
 - [If you've set $bShowAdditionalMessageBeforeBadgePrint to true], edit "messagebeforeprinttemplate.html" (or use one of the Sample templates provided as a basis) with your favourite editor in "languages -> LanguageName" sub-folders, for every language you wish to use. If your are currently using phpVisitorBadge Enhanced, you can reuse a part of the content of "messagebeforeprinttemplate.html" to prepare the new version of the file.
-- If you are not going to use Dymo 99012 Large Address Labels with a compatible Dymo LabelWriter printer, you should adapt badgetemplate.php (or use one of the Sample templates provided as a basis) with your favourite text editor in "languages -> LanguageName" sub-folders, for every language you wish to use. For more details on FPDF use, please consult "./fpdf/doc/index.htm".
+- If you are not going to use Dymo 99012 Large Address Labels with a compatible Dymo LabelWriter printer, you should adapt badgetemplate.php (or use one of the Sample templates provided as a basis) with your favourite text editor in "languages -> LanguageName" sub-folders, for every language you wish to use. For more details on FPDF use, please consult "./fpdf/fpdf/doc/index.htm".
 - Then, upload these files to your web server.
-- You should then use the appropriate SQL upgrade script to perform the required changes to your current database. If you are using phpVisitorBadge Enhanced, you should use "SQL Upgrade Script from phpVisitorBadge Enhanced 2.00 BETA 8.sql". If you are using phpVisitorBadge, you should use "SQL Upgrade Script from phpVisitorBadge.sql". Some changes may have to be applied to the scripts to match your current setup, before upgrade. Please ensure that the user you'll use to perform the upgrade has enough rights.
+- You should then use the appropriate SQL upgrade script to perform the required changes to your current database. If you are using phpVisitorBadge Enhanced, you should use "SQL Upgrade Script from phpVisitorBadge Enhanced 2.00 BETA 8.sql". If you are using phpVisitorBadge, you should use "SQL Upgrade Script from phpVisitorBadge.sql". Some changes may have to be applied to the scripts to match your current setup, before upgrade. Please ensure that the user you'll use to perform the upgrade has enough rights. Please note that upgrading from T.C.E.D.I. Open Visitors Management System 0.10 does not require any database change, so no SQL upgrade script at all.
 
 TRANSLATIONS
 
@@ -147,8 +147,14 @@ Legend:
 [?] = Information
 
 
-T.C.E.D.I. Open Visitors Management System 0.15 ()
+T.C.E.D.I. Open Visitors Management System 0.15 BETA 1 (2023-07-23)
 
+[*] Typo fixed in README.txt
+[*] Documentation updated in README.txt.
+[?] First tests have been successfully performed under PHP 8.0 and PHP 8.2, so it should work as well with PHP 8.1.
+[+] Support for new settings has been added to printbadge.php.
+[+] New settings section for FPDF option has been added to settings.php.
+[+] New settings for IPP logging have been added to settings.php.
 [?] All the changes below were backported from 0.20 (development) branch.
 [*] "NOTICE" file has been updated to reflect the removal of obsolete files.
 [-] Obsolete validation.js file has been removed.
