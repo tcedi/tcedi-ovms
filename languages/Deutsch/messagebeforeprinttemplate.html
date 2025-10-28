@@ -44,24 +44,14 @@ The following variables can be used in the body of the template:
 %AGREEMENT_SIGNED% = Indicates whether the visitor has signed. WARNING: This value is not translated!
 %IN_DATE% = Date and time of arrival of the visitor. WARNING: This value is not translated!
 -->
-<h1>%MY_COMPANY_NAME% <br> %VISITOR_BADGE_LABEL% - Anweisungen</h1>
+<h1>%VISITOR_BADGE_LABEL% - %MY_COMPANY_SHORT_NAME% - Instructions</h1>
 <p class="message">
-	Bitte gehen Sie wie folgt vor:
-	<ol>
-		<li>
-			Entnehmen Sie Ihren Besucherausweis, der im nächsten Schritt gedruckt wird.
-		</li>
-		<li>
-			Befestigen Sie den Besucherausweis gut sichtbar an Ihrer Kleidung.
-		</li>
-		<li>
-			Sobald Sie Ihren Besucherausweis erhalten haben, melden Sie sich bitte an der Rezeption.
-		</li>
-		<li>
-			Wählen Sie <strong>"Weiter"</strong>, um fortzufahren.
-		</li>
-	</ol>
+Your instructions or message to show to the visitor before printing the badge.
+<br>
+Edit "messagebeforeprinttemplate.html" file for every language you wish to use.
+<br>
+<br>
+You can also use one of the template samples provided as a basis or simply disable the display of this additional message before printing from "settings.php".
 </p>
-<br>Bitte melden Sie sich bei Besuchsende wieder ab.<br><br>
 </body>
 </html>
