@@ -25,6 +25,7 @@
 $TEXT_THANKS_AGAIN_FOR_VISITING = 'Nochmals vielen Dank für Ihren Besuch';
 $TEXT_CLOSE_WINDOW = 'Schließen Sie das Fenster...';
 $TEXT_THIS_WINDOW_WILL_BE_CLOSED_AUTOMATICALLY_IN = 'Dieses Fenster wird automatisch in';
-$TEXT_SECONDS = 'Sekunden geschlossen';
+$TEXT_SECONDS = 'Sekunde(n) geschlossen';
 $TEXT_GOODBYE = 'Auf Wiedersehen';
 ?>
+
