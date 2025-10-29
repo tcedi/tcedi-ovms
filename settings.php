@@ -35,6 +35,7 @@ $table = 'visitors';//MySQL table name in the database//
 $companyname = 'Your Company corp.' ;//Your Company Name//
 $shortname = 'Your Company' ;//Your Company Short Name ie. IBM for International Business Machines//
 $requireLegal = 'yes' ;//Do you want show a non disclosure before badge print//
+$bBadgelessMode = false; // Set it to true if you want to enable badgeless mode (no badge will be printed and thus no message will be shown before badge print), false otherwise.
 $bShowAdditionalMessageBeforeBadgePrint = true; // Set it to true if you want to display an additional message before the printing of the badge, false otherwise. Very useful to give additional instructions to the visitor.
 $bAllowReceptionistToChangeLocation = true; // Set it to true if you want to allow the receptionist to change of location, false otherwise. Very useful if the receptionist must manage several locations and/or if she/he must get access to reception view from her/his computer and not the visitors one !
 $bAllowVisitorsToOptionallyEnterTheirEMailAddress = true; // Set it to true if you want to display the optional input field to get the e-Mail address of the visitors, false otherwise.

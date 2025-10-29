@@ -89,6 +89,13 @@ function messagebeforeprintload(ID)
 	page = 'messagebeforeprint.php?language=<?php echo $sLanguage ?>&visitorID=' + ID
 	window.location=page;
 }
+
+//main page
+function mainload()
+{
+    page = 'main.php';
+    window.location=page;
+}
 </script>
 
 <?php
@@ -109,6 +116,34 @@ function sanitize($data)
 	// a mySQL connection is required before using this function
 	$data = mysqli_real_escape_string($database_link, $data);
 	return $data;
+}
+
+/**
+ * Manage redirections after insert or update (when NDA is required).
+ * Supported cases:
+ * - No badge printing at all (Badgeless mode);
+ * - Showing an additional message before badge printing;
+ * - Badge printing.
+ * @param $nVisitorID
+ * @return void
+ */
+function managenopreprintredirections($nVisitorID)
+{
+    if(isset($bBadgelessMode) && $bBadgelessMode === true)
+    {
+        echo "<script>mainload()</script>";
+    }
+    else
+    {
+        if ($bShowAdditionalMessageBeforeBadgePrint === true)
+        {
+            echo "<script>messagebeforeprintload($nVisitorID)</script>";
+        }
+        else
+        {
+            echo "<script>badgeload($nVisitorID)</script>";
+        }
+    }
 }
 
 //get IP for Location data
@@ -160,15 +195,8 @@ if (isset($_POST['legal']) && $_POST['legal'] == "$TEXT_AGREE")
 	{
 		die('!Error: ' . mysqli_error($database_link));
 	}
-	if($bShowAdditionalMessageBeforeBadgePrint === true)
-	{
-		echo "<script>messagebeforeprintload($visitorID)</script>";
-	}
-	else
-	{
-		echo "<script>badgeload($visitorID)</script>";
-	}
-	//echo "<script>self.close();</script>";
+    managenopreprintredirections($visitorID);
+    //echo "<script>self.close();</script>";
 } //end if legal
 
 //process logout
@@ -261,14 +289,7 @@ if(isset($_POST['login']))
 	}
 	else 
 	{
-		if($bShowAdditionalMessageBeforeBadgePrint === true)
-		{
-			echo "<script>messagebeforeprintload($id)</script>";
-		}
-		else
-		{
-			echo "<script>badgeload($id)</script>";
-		}
+		managenopreprintredirections($id);
 	}
 }
 ?>
