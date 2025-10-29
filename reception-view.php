@@ -31,13 +31,13 @@ include 'settings.php';
 /* BEGIN translations support section */
 if(isset($_GET["language"]) && !empty($_GET["language"]))
 {
-  $sLanguage = $_GET["language"];
-  if(!file_exists('./languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"])))
-    $sLanguage = $sDefaultLanguage;
+    $sLanguage = $_GET["language"];
+    if(!file_exists('./languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"])))
+        $sLanguage = $sDefaultLanguage;
 }
 else
 {
-  $sLanguage = $sDefaultLanguage;
+    $sLanguage = $sDefaultLanguage;
 }
 
 include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
@@ -46,28 +46,30 @@ include './languages/'.$sLanguage.'/'.basename($_SERVER["PHP_SELF"]);
 require 'database.php';
 
 //sql Injection removal
- function sanitize($data){
-global $database_link;
-// remove whitespaces (not a must though)
-$data = trim($data);
-// apply stripslashes if magic_quotes_gpc is enabled
-if(get_magic_quotes_gpc()){
-	$data = stripslashes($data);
-}
-// a mySQL connection is required before using this function
-$data = mysqli_real_escape_string($database_link, $data);
-return $data;
+function sanitize($data)
+{
+    global $database_link;
+    // remove whitespaces (not a must though)
+    $data = trim($data);
+    // apply stripslashes if magic_quotes_gpc is enabled
+    if(function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc())
+    {
+        $data = stripslashes($data);
+    }
+    // a mySQL connection is required before using this function
+    $data = mysqli_real_escape_string($database_link, $data);
+    return $data;
 }
 
 if(isset($_POST['logout']))
 {
-  //change SignOutFlag = 1
-  if (!mysqli_query($database_link, "UPDATE $table SET SignOutFlag=1, outDate='$sqltime' WHERE visitorID='$_POST[badgeID]' ORDER by inDate DESC LIMIT 1"))
-  {
-    die('!Error: ' . mysqli_error($database_link));
-  }
-  //echo "<script>self.close();</script>";
-  header("Location: ".$_SERVER["REQUEST_URI"]);
+    //change SignOutFlag = 1
+    if (!mysqli_query($database_link, "UPDATE $table SET SignOutFlag=1, outDate='$sqltime' WHERE visitorID='$_POST[badgeID]' ORDER by inDate DESC LIMIT 1"))
+    {
+        die('!Error: ' . mysqli_error($database_link));
+    }
+    //echo "<script>self.close();</script>";
+    header("Location: ".$_SERVER["REQUEST_URI"]);
 } //end if logout
 
 
@@ -87,15 +89,15 @@ else $location = $ip;
 
 if($bAllowReceptionistToChangeLocation === true)
 {
-	if(isset($_GET["location"]) && !empty($_GET["location"]))
-	{
-	  $location = sanitize($_GET["location"]);
-	}
-	else
-	{
-		//set the location to all locations by default.
-		$location = '%';
-	}
+    if(isset($_GET["location"]) && !empty($_GET["location"]))
+    {
+      $location = sanitize($_GET["location"]);
+    }
+    else
+    {
+        //set the location to all locations by default.
+        $location = '%';
+    }
 }
 
 //start report
@@ -111,11 +113,11 @@ $fields_num = mysqli_num_fields($result);
 // printing query
 if($location === "%")
 {
-	$sLocationLabel = $TEXT_ALL_LOCATIONS;
+    $sLocationLabel = $TEXT_ALL_LOCATIONS;
 }
 else
 {
-	$sLocationLabel = $location;
+    $sLocationLabel = $location;
 }
 ?>
 <!DOCTYPE html>
@@ -145,20 +147,20 @@ $bFirstTime = true;
 
 while (false !== ($sEntry = $dDirectory->read()))
 {
-   if($sEntry !== "." && $sEntry !== "..")
-   {
-	 if($bFirstTime == true)
-	 {
-	   $bFirstTime = false;
-	   $sPrefix = "";
-	 }
-	 else
-	 {
-	   $sPrefix = " |";
-	 }
-	 
-     echo $sPrefix." <a href=\"".basename($_SERVER["PHP_SELF"])."?language=".$sEntry."\">".$sEntry."</a>";
-   }
+    if($sEntry !== "." && $sEntry !== "..")
+    {
+        if($bFirstTime == true)
+        {
+            $bFirstTime = false;
+            $sPrefix = "";
+        }
+        else
+        {
+            $sPrefix = " |";
+        }
+
+        echo $sPrefix." <a href=\"".basename($_SERVER["PHP_SELF"])."?language=".$sEntry."\">".$sEntry."</a>";
+    }
 }
 $dDirectory->close();
 echo "</p>";
@@ -166,41 +168,41 @@ echo "</p>";
 
 if($bAllowReceptionistToChangeLocation === true)
 {
-	echo "
-	<form action=\"reception-view.php?language=$sLanguage\" autocomplete=\"off\" method =\"GET\" name=\"changelocation\">
-	<p class=\"changelocation\">
-		$TEXT_CHANGE_LOCATION :&nbsp;
-		<input type=\"hidden\" name=\"language\" value=\"$sLanguage\">
-		<select name=\"location\">
-	";
+    echo "
+    <form action=\"reception-view.php?language=$sLanguage\" autocomplete=\"off\" method =\"GET\" name=\"changelocation\">
+    <p class=\"changelocation\">
+        $TEXT_CHANGE_LOCATION :&nbsp;
+        <input type=\"hidden\" name=\"language\" value=\"$sLanguage\">
+        <select name=\"location\">
+    ";
 
-	$sRequest = "SELECT DISTINCT Location FROM $table ORDER BY Location ASC";
-	$rResults = mysqli_query($database_link, $sRequest);
-	while($rRow = mysqli_fetch_array($rResults, MYSQLI_ASSOC))
-	{
-		$sSelected = "";
-		if($rRow['Location'] === $location)
-		{
-			$sSelected = " selected";
-		}
-		echo '<option'.$sSelected.' value="'.$rRow['Location'].'">'.$rRow['Location'].'</option>'."\n";
-	}
+    $sRequest = "SELECT DISTINCT Location FROM $table ORDER BY Location ASC";
+    $rResults = mysqli_query($database_link, $sRequest);
+    while($rRow = mysqli_fetch_array($rResults, MYSQLI_ASSOC))
+    {
+        $sSelected = "";
+        if($rRow['Location'] === $location)
+        {
+            $sSelected = " selected";
+        }
+        echo '<option'.$sSelected.' value="'.$rRow['Location'].'">'.$rRow['Location'].'</option>'."\n";
+    }
 
-	mysqli_free_result($rResults);
+    mysqli_free_result($rResults);
 
-	$sSelected = "";
-	if($location === "%")
-	{
-		$sSelected = " selected";
-	}
-	echo "
-		<option $sSelected value=\"%\">$TEXT_ALL_LOCATIONS</option>
-		</select>
-		&nbsp;
-		<input type=\"submit\" name=\"ok\" value=\"$TEXT_OK\">
-	</p>
-	</form>
-	";
+    $sSelected = "";
+    if($location === "%")
+    {
+        $sSelected = " selected";
+    }
+    echo "
+        <option $sSelected value=\"%\">$TEXT_ALL_LOCATIONS</option>
+        </select>
+        &nbsp;
+        <input type=\"submit\" name=\"ok\" value=\"$TEXT_OK\">
+    </p>
+    </form>
+    ";
 }
 
 echo '<div class="table-responsive">';
@@ -208,25 +210,25 @@ echo "<table class=\"table table-striped table-bordered\"><tr>";
 // printing table headers
 echo "
 <th class=\"text-center\">
-	$TEXT_ACTION
+    $TEXT_ACTION
 </th>
 <th class=\"text-center\">
-	$TEXT_FIRST_NAME
+    $TEXT_FIRST_NAME
 </th>
 <th class=\"text-center\">
-	$TEXT_LAST_NAME
+    $TEXT_LAST_NAME
 </th>
 <th class=\"text-center\">
-	$TEXT_COMPANY
+    $TEXT_COMPANY
 </th>
 <th class=\"text-center\">
-	$TEXT_VISITING
+    $TEXT_VISITING
 </th>
 <th class=\"text-center\">
-	$TEXT_VEHICLE_ON_SITE
+    $TEXT_VEHICLE_ON_SITE
 </th>
 <th class=\"text-center\">
-	$TEXT_LICENSE_PLATE_NUMBER
+    $TEXT_LICENSE_PLATE_NUMBER
 </th>
 ";
 echo "</tr>\n";
@@ -239,18 +241,18 @@ $logoutlink = 1;
     // of $row to $cell variable
     //place a logout ontop of each row
     foreach($row as $cell){
-	echo "<td>";
-	if ($logoutlink == 1) 
-		{echo "
+    echo "<td>";
+    if ($logoutlink == 1)
+        {echo "
 <form action=\"reception-view.php?".http_build_query($_GET)."\" autocomplete=\"off\" method=\"POST\" name=\"oldvisitor\">
-	<div>
-	<input type=\"hidden\" value=$cell name=\"badgeID\">
-	<input type=\"submit\" name=\"logout\" value=\"$TEXT_SIGN_OUT_FOR_THE_DAY\" OnClick=\"meta:refresh\">
-	</div>
+    <div>
+    <input type=\"hidden\" value=$cell name=\"badgeID\">
+    <input type=\"submit\" name=\"logout\" value=\"$TEXT_SIGN_OUT_FOR_THE_DAY\" OnClick=\"meta:refresh\">
+    </div>
 </form>
 ";}
-	if ($logoutlink == 0) echo "$cell</td>"; $logoutlink = 0;
-	} //foreach
+    if ($logoutlink == 0) echo "$cell</td>"; $logoutlink = 0;
+    } //foreach
     echo "</tr>\n"; ;
 }
 echo "</table>";
