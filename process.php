@@ -129,12 +129,14 @@ function sanitize($data)
  */
 function managenopreprintredirections($nVisitorID)
 {
+    global $bBadgelessMode;
     if(isset($bBadgelessMode) && $bBadgelessMode === true)
     {
         echo "<script>mainload()</script>";
     }
     else
     {
+        global $bShowAdditionalMessageBeforeBadgePrint;
         if ($bShowAdditionalMessageBeforeBadgePrint === true)
         {
             echo "<script>messagebeforeprintload($nVisitorID)</script>";
