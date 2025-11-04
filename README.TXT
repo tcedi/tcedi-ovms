@@ -147,10 +147,20 @@ Legend:
 [?] = Information
 
 
+T.C.E.D.I. Open Visitors Management System 0.15 BETA 2 (2025-11-04)
+[*] README.TXT has been updated.
+[#] Scope issues introduced with Badgeless mode support have been fixed.
+[*] English punctuation has been improved in main.php.
+[+] Some translation instructions for $TEXT_CHOOSE_YOUR_LANGUAGE have been added in main.php.
+[+] German translation from gc256 has been added to version 0.15.
+[*] Some indentation mismatches have been fixed in reception-view.php.
+[+] PHP 8+ support added to reception-view.php.
+[+] Badgeless mode support added. No badge printing at all when enabled.
+
 T.C.E.D.I. Open Visitors Management System 0.15 BETA 1 (2023-07-23)
 
-[*] Typo fixed in README.txt
-[*] Documentation updated in README.txt.
+[*] Typo fixed in README.TXT
+[*] Documentation updated in README.TXT.
 [?] First tests have been successfully performed under PHP 8.0 and PHP 8.2, so it should work as well with PHP 8.1.
 [+] Support for new settings has been added to printbadge.php.
 [+] New settings section for FPDF option has been added to settings.php.
